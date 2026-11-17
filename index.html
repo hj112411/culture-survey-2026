@@ -310,6 +310,24 @@ body.completion-only #successView .success-icon { flex:0 0 auto; margin:0 auto 1
 body.completion-only #completionHeading:focus { outline:none; }
 body.completion-only #completionHeading { margin:0; font-size:clamp(22px,6vw,26px); line-height:1.48; font-weight:750; letter-spacing:-.045em; word-break:keep-all; }
 
+
+/* 2026.11 HEART 설문 — 확정 상단 정보 위계 */
+.survey-kicker {font-size:15px;font-weight:750;line-height:1.4;letter-spacing:-.022em;color:#EF9130;margin:0 0 9px}
+.intro-stack {display:flex;flex-direction:column;gap:0;word-break:keep-all}
+.intro-background {margin:0 0 8px;font-size:16px;line-height:1.6;font-weight:670;letter-spacing:-.032em;color:#303234}
+.intro-purpose {margin:0 0 15px;font-size:14.5px;line-height:1.66;font-weight:400;letter-spacing:-.022em;color:#666C70}
+.intro-privacy {display:flex;align-items:flex-start;gap:10px;padding:13px;border:1px solid #E8EAE7;border-radius:12px;background:#F6F7F5}
+.intro-privacy svg {flex:0 0 19px;width:19px;height:19px;margin-top:2px;color:#EF9130}
+.intro-privacy p {margin:0;font-size:14.2px;line-height:1.7;letter-spacing:-.023em;color:#50575B}
+.intro-privacy strong {color:#EF9130;font-weight:800}
+.intro-stack + .question-count {margin-top:17px}
+@media(max-width:359px){
+  .survey-kicker {font-size:14.2px}
+  .intro-background {font-size:15.3px}
+  .intro-purpose {font-size:14px}
+  .intro-privacy {gap:9px;padding:12px 11px}
+  .intro-privacy p {font-size:13.5px}
+}
 </style>
 </head>
 <body>
@@ -322,9 +340,16 @@ body.completion-only #completionHeading { margin:0; font-size:clamp(22px,6vw,26p
     </nav>
     <main class="panel" id="mainPanel">
       <div class="panel-inner" id="surveyView">
-        <p class="survey-kicker">2026년 기업문화 후속 설문</p>
+        <p class="survey-kicker">2026년 기업문화(HEART) 후속 설문</p>
         <h1>좋아진 점도<br />그대로인 점도 알려주세요.</h1>
-        <p class="lede">기업문화 진단 결과를 지난 9월 공유하고, 각 조직에 개선을 요청했습니다.<br />그 후 우리 조직에서 느끼신 점을 간단히 듣고자 합니다.<br /><span class="lede-privacy"><strong class="privacy-emphasis">익명 설문으로</strong>, 구성원의 체감 여부와 사례를 확인하는 데만 활용됩니다.</span></p>
+        <div class="intro-stack" aria-label="설문 안내">
+          <p class="intro-background">지난 9월, 기업문화 진단 결과를 공유하고 각 조직에 개선을 요청했습니다.</p>
+          <p class="intro-purpose">그 후 우리 조직에서 느끼신 점을 간단히 듣고자 합니다.</p>
+          <div class="intro-privacy" role="note">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+            <p><strong class="privacy-emphasis">익명 설문으로</strong>, 구성원의 체감 여부와 사례를 확인하는 데만 활용됩니다.</p>
+          </div>
+        </div>
         <div class="question-count" aria-label="설문 문항 수"><strong>필수 1문항</strong><span>(추가 의견은 선택)</span></div>
         <div class="rule" aria-hidden="true"></div>
         <form id="surveyForm" novalidate>
