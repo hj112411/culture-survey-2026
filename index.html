@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <base target="_top" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#F8F8F6" />
+  <meta name="description" content="2026년 기업문화 후속 설문. 좋아진 점도 그대로인 점도 알려주세요." />
+  <title>2026년 기업문화 후속 설문</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+/* DESIGN SYSTEM — restrained brand UI; grouped HQ lookup */
+:root {
+  color-scheme: light;
+  --brand:#EF9130;
+  --brand-weak:#FFF8EF;
+  --brand-border:#DB8124;
+  --ink:#252525;
+  --ink-soft:#424242;
+  --muted:#666C72;
+  --border:#DEDFDC;
+  --bg:#F8F8F6;
+  --surface:#fff;
+  --error:#B33832;
+}
+*,*::before,*::after {box-sizing:border-box}
+html {-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body {margin:0;min-width:320px;background:var(--bg);color:var(--ink);font:400 15px/1.65 "Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo",sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased}
+button,input,textarea {font:inherit}
+[hidden] {display:none!important}
+.page {width:min(100%,548px);margin:0 auto;padding:16px 16px max(30px,env(safe-area-inset-bottom))}
+.masthead {display:flex;gap:10px;align-items:center;justify-content:space-between;margin:3px 2px 18px}
+.wordmark {display:flex;gap:9px;align-items:center;font-size:13px;font-weight:650;color:#444;letter-spacing:-.025em}
+.wordmark-mark {display:inline-block;width:4px;height:18px;border-radius:3px;background:var(--brand)}
+.masthead-side {font-size:12px;color:#777;white-space:nowrap}
+.panel {background:#fff;border:1px solid #E9E9E6;border-radius:18px;box-shadow:0 8px 30px rgba(20,20,20,.026);overflow:hidden}
+.panel-inner {padding:26px 23px 28px}
+.survey-kicker {font-size:12.5px;font-weight:650;letter-spacing:-.01em;color:#A2641E;margin:0 0 8px}
+.question-top {align-items:flex-start;gap:9px;margin-bottom:10px}
+.question-top .question {flex:1;margin:0;font-size:16px}
+.question-top .required {flex-shrink:0;margin-left:4px;padding-top:2px}
+.comment-privacy {margin:5px 0 0;font-size:12px;line-height:1.6;color:#727578}
+.eyebrow {display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:-.01em;color:#6E5944;font-weight:650}
+.eyebrow .dot {height:6px;width:6px;flex-shrink:0;border-radius:50%;background:var(--brand)}
+h1 {font-size:clamp(25px,6.8vw,29px);line-height:1.36;font-weight:700;letter-spacing:-.045em;margin:10px 0 11px;color:var(--ink)}
+.lede {font-size:14.5px;line-height:1.76;color:#4D5258;letter-spacing:-.02em;margin:0}
+.quick-copy {font-size:13px;line-height:1.65;color:#636363;margin:12px 0 0}
+.quick-copy strong {font-weight:650;color:#292929}
+.rule {height:1px;background:#EDECEA;margin:20px 0 23px}
+.field-block+.field-block {margin-top:24px}
+.field-top {display:flex;align-items:baseline;gap:9px;margin-bottom:9px}
+.field-index {font-size:12px;font-weight:650;color:#976022;font-variant-numeric:tabular-nums}
+.field-caption {margin:0;font-size:15.5px;font-weight:650;line-height:1.5;letter-spacing:-.03em;color:#2B2B2B}
+.required,.optional {margin-left:auto;font-size:12px;color:#757575;font-weight:450}
+.org-combo {position:relative;margin-top:10px}
+.org-search {display:block;width:100%;min-height:52px;border:1px solid #D8D9D6;border-radius:12px;padding:12px 44px 12px 15px;background:#fff;font-size:16px;color:#242424;line-height:1.4}
+.org-search::placeholder,textarea::placeholder,#rafflePhone::placeholder {color:#8A8D90}
+.org-search:focus-visible,textarea:focus-visible,#rafflePhone:focus-visible {outline:3px solid rgba(239,145,48,.23);outline-offset:1px;border-color:var(--brand-border)}
+.org-magnifier {position:absolute;right:15px;top:17px;width:19px;height:19px;color:#797D82;pointer-events:none}
+.org-list {position:relative;z-index:5;padding:5px;margin:7px 0 0;max-height:220px;overflow-y:auto;border:1px solid #DADBD8;border-radius:12px;background:white;box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.org-option {display:block;width:100%;padding:12px;border:0;border-radius:8px;text-align:left;color:#333;background:#fff;font-size:14px;cursor:pointer}
+.org-option:hover,.org-option:focus-visible {background:var(--brand-weak);outline:none}
+.org-option:focus-visible {box-shadow:inset 0 0 0 2px var(--brand-border)}
+.org-status {margin:7px 0 0;color:#63676A;font-size:12.5px;line-height:1.5}
+.org-status.good {color:#387456}
+.org-other {padding:4px 0 0;margin-top:3px;background:none;border:0;text-decoration:underline;text-underline-offset:3px;color:#585858;font-size:12.5px;cursor:pointer}
+.org-other:focus-visible {outline:2px solid var(--brand-border);outline-offset:3px}
+fieldset {border:0;padding:0;margin:0;min-width:0}
+legend {display:block;width:100%;padding:0}
+.question {display:block;margin:0 0 9px;font-size:16.5px;font-weight:650;line-height:1.58;letter-spacing:-.036em;color:#272727}
+.question-hint {margin:0 0 14px;color:#666A70;font-size:13px;line-height:1.55}
+.choice-list {display:grid;gap:8px}
+.choice {position:relative;display:flex;align-items:flex-start;gap:11px;width:100%;min-height:53px;border:1px solid #DBDDDA;border-radius:11px;background:#fff;padding:13px 13px;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s}
+.choice:hover {border-color:#B1B2B0}
+.choice:focus-within {outline:3px solid rgba(239,145,48,.25);outline-offset:2px}
+.choice.is-selected {border-color:var(--brand-border);background:#FFF9F2;box-shadow:inset 0 0 0 .3px var(--brand-border)}
+.choice input {position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.radio-ui {display:grid;place-items:center;flex:0 0 auto;margin-top:1px;width:20px;height:20px;border:1.6px solid #999F9D;border-radius:50%;background:#fff}
+.radio-ui::after {content:"";width:8px;height:8px;border-radius:50%;background:#fff;transform:scale(0);transition:transform .15s}
+.choice.is-selected .radio-ui {border-color:#BE6210;background:var(--brand)}
+.choice.is-selected .radio-ui::after {transform:scale(1)}
+.choice-text {font-size:14.5px;line-height:1.55;letter-spacing:-.02em;font-weight:430;color:#333}
+.choice.is-selected .choice-text {font-weight:600;color:#242424}
+.followup {margin-top:20px;border:1px solid #E5E4E0;border-radius:13px;background:#FAFAF8;padding:17px 15px}
+.followup .field-top {margin-bottom:9px}
+.followup-question {display:block;margin:0 0 9px;font-size:16px;line-height:1.55;letter-spacing:-.027em;font-weight:650;color:#292929}
+.helper {margin:0 0 10px;color:#5D6266;font-size:13.5px;line-height:1.65}
+textarea {display:block;resize:vertical;min-height:102px;max-height:290px;width:100%;border:1px solid #D8D9D5;border-radius:10px;padding:12px 14px;background:#fff;color:#252525;font-size:16px;line-height:1.58}
+.count {margin-top:7px;text-align:right;color:#666;font-size:12px;font-variant-numeric:tabular-nums}
+.share-consent {display:flex;gap:9px;align-items:flex-start;margin-top:12px;color:#555C60;font-size:12.7px;line-height:1.6;cursor:pointer}
+.share-consent input {flex:0 0 auto;width:18px;height:18px;margin-top:2px;accent-color:var(--brand)}
+.footer-note {margin:22px 0 16px;padding:0;display:flex;align-items:flex-start;gap:9px;background:transparent;color:#64676A;font-size:12.8px;line-height:1.7}
+.footer-note svg {flex:0 0 17px;width:17px;height:17px;margin-top:2px;stroke:#81837F}
+.submit-button {display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:54px;border:0;border-radius:11px;padding:12px 18px;background:var(--brand);color:#24211D;font-size:16px;font-weight:700;letter-spacing:-.02em;cursor:pointer;transition:background .15s,transform .15s}
+.submit-button:hover {background:#F4A14D}
+.submit-button:active {transform:scale(.99)}
+.submit-button:focus-visible,.reset-button:focus-visible,.skip-button:focus-visible {outline:3px solid rgba(239,145,48,.27);outline-offset:3px}
+.submit-button:disabled {opacity:.65;cursor:wait;transform:none}
+.submit-button svg {width:17px;height:17px;stroke-width:2}
+.form-endnote {text-align:center;color:#666;font-size:12.5px;line-height:1.65;margin:11px 2px 0}
+.error {color:var(--error);font-size:13px;line-height:1.6;margin:7px 1px 0}
+.form-error {color:var(--error);background:#FFF4F2;border-radius:9px;padding:10px 12px;margin:0 0 12px;font-size:13px}
+[aria-invalid="true"] {border-color:var(--error)!important}
+.success {text-align:center;padding:16px 6px 6px}
+.success-icon {display:grid;place-items:center;width:56px;height:56px;border-radius:50%;margin:0 auto 16px;background:#FFF1E1;color:#B66314}
+.success-icon svg {width:28px;height:28px;stroke-width:2}
+.success h2 {margin:0 0 9px;font-size:23px;letter-spacing:-.04em;line-height:1.45;font-weight:700}
+.success p {margin:0 auto;color:#515151;font-size:14px;line-height:1.75;max-width:340px}
+.test-status {margin:14px 0 0;background:#F6F4F0;border-radius:9px;padding:9px;color:#65605A;font-size:12.5px}
+.raffle-intro {margin:20px 0 12px;text-align:left;border-top:1px solid #E9E7E3;padding-top:20px}
+.raffle-intro h3 {margin:0 0 8px;font-size:18px;line-height:1.5;letter-spacing:-.03em;font-weight:650}
+.raffle-intro p {max-width:none;font-size:13.5px;line-height:1.7;color:#555}
+.raffle-prize {margin:13px 0 2px!important;font-size:15px!important;font-weight:750;color:#2E2E2E!important;line-height:1.55!important}
+.raffle-date {margin:0 0 11px!important;font-size:13.5px!important;color:#62666A!important;line-height:1.55!important}
+.raffle-disclaimer {margin:14px 0 0!important;padding:0;color:#555;font-size:13.5px!important;line-height:1.7!important}
+.raffle-field {margin:19px 0 10px;text-align:left}
+.raffle-field label {display:block;font-size:14.5px;font-weight:650;margin-bottom:8px}
+.raffle-field input {display:block;width:100%;height:52px;border:1px solid #D8D9D5;border-radius:10px;padding:10px 14px;background:#fff;font-size:16px;color:#222}
+.privacy-details {margin:14px 0;padding:14px 13px;background:#F8F8F6;border-radius:9px;text-align:left;font-size:12.8px;line-height:1.75;color:#555}
+.privacy-details dl {margin:0;display:grid;grid-template-columns:77px 1fr;gap:6px 8px}
+.privacy-details dt {color:#333;font-weight:650}
+.privacy-details dd {margin:0}
+.consent-label {display:flex;align-items:flex-start;gap:9px;margin:13px 0 15px;text-align:left;color:#555;font-size:13px;line-height:1.6;cursor:pointer}
+.consent-label input {flex:0 0 auto;width:18px;height:18px;margin:2px 0 0;accent-color:var(--brand)}
+.raffle-actions {margin-top:13px}
+.skip-button {display:block;margin:12px auto 0;padding:10px 12px;background:transparent;border:0;text-decoration:underline;text-underline-offset:3px;font-size:13px;color:#555;cursor:pointer}
+.raffle-notice {display:block;margin:10px 0 0;color:#666;font-size:12.3px;line-height:1.6}
+.raffle-result {margin-top:16px;padding:16px;background:#FAF7F2;border-radius:10px;text-align:center}
+.raffle-result strong {font-size:17px}
+.raffle-result p {margin-top:7px;font-size:13px}
+
+.org-option {text-align:left!important;display:block!important;line-height:1.45!important}
+.org-option .org-primary {display:block;font-size:14px;font-weight:650;color:#2A2A2A}
+.org-option .org-secondary {display:block;margin-top:4px;font-size:12.5px;line-height:1.5;color:#6E7072;overflow-wrap:anywhere}
+.org-list-note {padding:9px 12px;font-size:12px;line-height:1.55;color:#757575;background:#FAFAF9;border-radius:7px}
+.org-status.good {color:#675136}
+.reset-button {display:block;margin:23px auto 0;padding:10px 14px;border:1px solid #DDDCD8;border-radius:10px;background:white;font-size:13px;font-weight:600;color:#555;cursor:pointer}
+.test-ribbon {display:flex;align-items:flex-start;gap:8px;margin:0 0 10px;padding:9px 12px;background:#FFF9EF;border:1px solid #F5E9D9;border-radius:10px;color:#5B4B3C;font-size:12px;line-height:1.5}
+.test-ribbon strong {white-space:nowrap;font-weight:700}
+.preview-nav {display:flex;gap:3px;padding:4px;margin:0 0 13px;background:#fff;border:1px solid #E7E7E4;border-radius:10px}
+.preview-nav button {flex:1;min-width:0;padding:8px 4px;background:transparent;border:1px solid transparent;border-radius:7px;color:#626262;font-size:12px;font-weight:500;cursor:pointer}
+.preview-nav button.active {color:#252525;background:#F6F3EF;border-color:#E8DDD0;font-weight:650}
+.preview-nav button:focus-visible {outline:2px solid var(--brand-border);outline-offset:1px}
+.below {padding:17px 2px 0;text-align:center;color:#777;font-size:11.5px}
+@media(min-width:650px){.page{padding:30px 18px 48px}.panel-inner{padding:32px 33px 34px}}
+@media(max-width:359px){.page{padding:12px 11px 22px}.panel-inner{padding:22px 17px}.masthead-side{font-size:11px}.choice{padding:12px 10px}.choice-text{font-size:14px}h1{font-size:24px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+  
+/* MOBILE READABILITY REFINEMENT — visual hierarchy, compact form, one radio group */
+.page {padding:12px 12px max(24px,env(safe-area-inset-bottom))}
+.panel {border-radius:16px}
+.panel-inner {padding:22px 19px 24px}
+.survey-kicker {font-size:12px;margin:0 0 6px}
+h1 {font-size:clamp(23px,6.3vw,26px);line-height:1.31;margin:7px 0 13px;letter-spacing:-.045em}
+.lede {font-size:13.7px;line-height:1.63;letter-spacing:-.023em}
+.rule {margin:18px 0 20px}
+.field-block+.field-block {margin-top:22px}
+.field-top {gap:8px;margin-bottom:8px}
+.field-caption {font-size:15.5px}
+.org-combo {margin-top:0}
+.org-search {min-height:50px;border-radius:11px;padding:11px 42px 11px 13px;font-size:15px}
+.org-magnifier {top:16px}
+.org-other {margin-top:3px;padding:4px 0 0;font-size:12px}
+.question-top {gap:8px;margin-bottom:7px}
+.question-top .question {font-size:15.7px;line-height:1.5;letter-spacing:-.032em}
+.question-hint {margin:0 0 10px;font-size:12.8px;line-height:1.5}
+/* Radio options are one decision, therefore one grouped component. */
+.choice-list {display:block;overflow:hidden;border:1px solid #DCDEDA;border-radius:12px;background:white}
+.choice {min-height:49px;align-items:center;gap:11px;width:100%;padding:11px 12px;border:0;border-radius:0;background:transparent;transition:background .13s}
+.choice+.choice {border-top:1px solid #EBECE9}
+.choice:hover {background:#FAFAF8}
+.choice.is-selected {background:#FFF8F0;box-shadow:inset 3px 0 0 var(--brand)}
+.choice.is-selected:hover {background:#FFF7EE}
+.choice:focus-within {outline:2px solid rgba(239,145,48,.55);outline-offset:-2px;z-index:1}
+.radio-ui {margin-top:0;width:19px;height:19px;border-width:1.5px}
+.choice-text {font-size:14px;font-weight:400;line-height:1.52;letter-spacing:-.024em}
+.choice.is-selected .choice-text {font-weight:600}
+.followup {margin-top:17px;padding:15px 14px}
+.followup-question {font-size:15px}
+.footer-note {margin:18px 0 15px;gap:8px;font-size:12.3px;line-height:1.6}
+.footer-note svg {margin-top:2px}
+.submit-button {min-height:52px;font-size:15.5px}
+.form-endnote {margin:10px 0 0;font-size:12px}
+@media (min-width:650px) {
+  .page {padding:26px 16px 46px}
+  .panel-inner {padding:29px 30px 32px}
+  h1 {font-size:27px}
+}
+@media (max-width:359px) {
+  .page {padding:9px 9px 20px}
+  .panel-inner {padding:19px 15px 22px}
+  h1 {font-size:22.5px}
+  .lede {font-size:13.2px}
+  .question-top .question {font-size:15px}
+  .choice {padding:10px 11px}
+  .choice-text {font-size:13.5px}
+}
+
+
+/* 2026 CULTURE SURVEY — MOBILE-FIRST TWO-STEP EXPERIENCE */
+:root { --ink:#242525; --muted:#666A6D; --bg:#F5F5F2; --border:#DEDFDB }
+body {font-size:16px;line-height:1.63;background:var(--bg)}
+.page {width:min(100%,560px);padding:12px 12px max(28px,env(safe-area-inset-bottom))}
+.panel {border-radius:20px;border:1px solid #E8E8E3;box-shadow:0 7px 22px rgba(27,28,25,.025)}
+.panel-inner {padding:28px 23px 30px}
+.test-ribbon {padding:7px 10px;margin:0 0 10px;border:0;border-radius:9px;background:#F1EFE8;color:#71665B;font-size:11.5px;line-height:1.45;gap:7px}
+.test-ribbon strong {font-size:11.5px}
+.preview-nav {margin-bottom:10px}
+.survey-kicker {font-size:13.5px;font-weight:700;letter-spacing:-.018em;color:var(--brand);margin:0 0 9px}
+h1 {font-size:clamp(28px,7.7vw,32px);line-height:1.34;letter-spacing:-.052em;margin:0 0 16px;font-weight:700;color:#242424}
+.lede {font-size:15.4px;line-height:1.8;color:#525659;letter-spacing:-.025em;word-break:keep-all}
+.lede-privacy {display:block;margin-top:8px;font-weight:500;color:#535659}
+.privacy-emphasis {color:var(--brand);font-weight:800}
+.question-count {display:flex;flex-wrap:wrap;align-items:baseline;gap:5px;margin-top:21px;font-size:15px;line-height:1.55;color:#66696B;letter-spacing:-.02em}
+.question-count strong {font-size:15px;font-weight:750;color:#282929}
+.question-count span {font-weight:400}
+.rule {height:1px;background:#ECEDE9;margin:21px 0 24px}
+.field-top {align-items:center;gap:9px;margin:0 0 16px}
+.field-index {font-size:14px;font-weight:800;color:var(--brand)}
+.field-caption {font-size:20px;line-height:1.45;font-weight:700;letter-spacing:-.038em;color:#252525}
+.required,.optional {font-size:13px;line-height:1.5;color:#707579;font-weight:500}
+.org-combo {margin-top:0}
+.org-search {min-height:60px;border-radius:14px;border-color:#D3D6D3;font-size:17px;line-height:1.35;padding:14px 46px 14px 16px;letter-spacing:-.018em}
+.org-magnifier {top:19px;right:16px;width:21px;height:21px}
+.org-option {padding:15px 13px;border-radius:9px}
+.org-option+.org-option {border-top:1px solid #F0F0EC}
+.org-option .org-primary {font-size:16px;line-height:1.5}
+.org-option .org-secondary {font-size:13.8px;line-height:1.58;color:#6C7073}
+.org-list {max-height:255px}
+.org-other {font-size:14px;color:#676A6D;margin-top:12px;padding:3px 0;text-underline-offset:4px}
+.org-status {font-size:14px;line-height:1.6;margin-top:9px}
+.manual-continue {display:flex;justify-content:center;align-items:center;gap:10px;width:100%;border:0;border-radius:13px;margin-top:17px;background:var(--brand);min-height:54px;color:#292621;font-size:16px;font-weight:700;cursor:pointer}
+.manual-continue:focus-visible,.change-org:focus-visible {outline:3px solid rgba(239,145,48,.3);outline-offset:3px}
+.stage-complete {border:1px solid #E8E4DF;border-radius:13px;padding:13px 14px;background:#FAF9F6;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.stage-complete-copy {display:flex;flex-direction:column;min-width:0;gap:3px}
+.stage-complete-label {font-size:12.5px;font-weight:600;color:#6D6E6E}
+.stage-complete-copy strong {font-size:17px;line-height:1.48;font-weight:700;color:#282829;overflow-wrap:anywhere}
+.complete-check {display:inline-grid;place-items:center;border-radius:50%;width:17px;height:17px;margin-right:3px;font-size:11px;font-weight:700;background:#DDF1E5;color:#376D50}
+.change-org {white-space:nowrap;background:#fff;border:1px solid #D9D9D5;padding:8px 14px;border-radius:9px;font-size:14px;font-weight:600;color:#56595B;cursor:pointer}
+.stage-two {margin-top:26px!important;border-top:1px solid #EDEDE9;padding-top:25px}
+.question-top {align-items:flex-start;gap:10px;margin:0 0 11px}
+.question-top .field-index {padding-top:5px}
+.question-top .question {font-size:20px;font-weight:700;line-height:1.48;letter-spacing:-.04em}
+.question-top .required {padding-top:5px;margin-left:0}
+.question-hint {font-size:15.2px;line-height:1.64;color:#5F6467;margin:0 0 15px}
+.choice-list {display:grid;gap:9px;overflow:visible;border:0;border-radius:0;background:transparent}
+.choice,.choice+.choice {position:relative;display:flex;min-height:61px;align-items:center;gap:13px;width:100%;border:1px solid #DCDDD9;border-radius:13px;background:#fff;padding:15px 14px;box-shadow:none;transition:background .13s,border-color .13s}
+.choice:hover {border-color:#B7BAB6;background:#fff}
+.choice.is-selected,.choice.is-selected:hover {background:#FFF7ED;border:1.5px solid #E48A29;box-shadow:none}
+.radio-ui {width:22px;height:22px;flex:0 0 22px;margin:0;border:2px solid #B1B5B2}
+.radio-ui::after {width:8px;height:8px}
+.choice-text {font-size:16.1px;line-height:1.57;font-weight:450;letter-spacing:-.02em;color:#303235}
+.choice.is-selected .choice-text {font-weight:650}
+.followup {margin-top:22px;padding:18px 16px;border-radius:14px;background:#FAFAF8;border-color:#E7E7E4}
+.followup .field-caption {font-size:16px}
+.followup-question {font-size:18px;line-height:1.5}
+.helper {font-size:14.5px;line-height:1.72}
+.comment-privacy,.share-consent {font-size:13.5px;line-height:1.65}
+#responseFooter {margin-top:22px}
+.submit-button {min-height:57px;border-radius:13px;font-size:17px}
+.form-endnote {font-size:13.5px;line-height:1.6;margin:13px 0 0}
+.stage-two:not([hidden]) {animation:step-enter .23s ease-out both}
+@keyframes step-enter {from{opacity:.25;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:650px) {.page {padding:25px 16px 40px}.panel-inner {padding:36px 37px 40px}h1 {font-size:32px}}
+@media(max-width:359px) {.page {padding:9px 8px 23px}.panel-inner {padding:24px 17px 25px}h1 {font-size:27px}.lede {font-size:14.8px}.field-caption,.question-top .question {font-size:19px}.choice-text {font-size:15.6px}.org-search {font-size:16px}.stage-tip {font-size:13.5px}}
+@media(prefers-reduced-motion:reduce) {.stage-two:not([hidden]) {animation:none}}
+
+  
+/* Final brand/optional-response refinement — 2026-11-16 */
+.survey-kicker,.field-index {color:var(--brand)}
+.field-index {font-weight:800}
+.stage-complete-label .field-index {font-size:inherit;font-weight:800;color:var(--brand)}
+.followup .followup-title {display:flex;align-items:flex-start;gap:10px;margin-bottom:9px}
+.followup-title .field-index {flex:0 0 auto;padding-top:3px}
+.followup-title .followup-question {min-width:0;flex:1 1 auto;margin:0;font-size:18px;line-height:1.48;font-weight:700;letter-spacing:-.035em;color:#292929}
+.followup-title .optional {margin-left:3px;padding-top:5px;flex:0 0 auto;white-space:nowrap}
+@media(max-width:359px) {.followup-title .followup-question{font-size:17px}.followup .followup-title{gap:7px}}
+
+/* Compact selected organization: replaces the former checked/numbered card. */
+.org-selected-inline {display:flex;align-items:center;gap:7px;min-width:0;padding:0 1px;color:#676A6D;font-size:13.5px;line-height:1.45}
+.org-selected-prefix {flex:0 0 auto;white-space:nowrap}
+.org-selected-inline strong {min-width:0;flex:1 1 auto;color:#424447;font-size:14px;font-weight:650;overflow-wrap:anywhere}
+.org-selected-inline .change-org {flex:0 0 auto;border:0;background:transparent;text-decoration:underline;text-underline-offset:3px;border-radius:5px;padding:7px 2px 7px 8px;color:#6B7071;font-size:13.5px;font-weight:550}
+.org-stage.is-complete + .stage-two {margin-top:13px!important;padding-top:16px}
+.followup textarea::placeholder {color:#898F91;opacity:1}
+@media(max-width:359px) {.org-selected-inline{font-size:12.5px}.org-selected-inline strong{font-size:13px}}
+
+/* 최종 완료 상태: 체크 아이콘과 감사 문구만 표시 */
+body.completion-only { background:#fff; }
+body.completion-only .page { width:min(100%,560px); padding:0; }
+body.completion-only .panel { border:0; border-radius:0; box-shadow:none; overflow:visible; }
+body.completion-only #testBanner,
+body.completion-only #previewNav,
+body.completion-only #completionText,
+body.completion-only #completionTestNote,
+body.completion-only #raffleIntro,
+body.completion-only #raffleResult,
+body.completion-only #resetButton { display:none!important; }
+body.completion-only #successView { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; min-height:100dvh; padding:32px 19px; text-align:center; }
+body.completion-only #successView .success-icon { flex:0 0 auto; margin:0 auto 18px; }
+body.completion-only #completionHeading:focus { outline:none; }
+body.completion-only #completionHeading { margin:0; font-size:clamp(22px,6vw,26px); line-height:1.48; font-weight:750; letter-spacing:-.045em; word-break:keep-all; }
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <aside id="testBanner" class="test-ribbon" role="note"><strong>화면 테스트</strong><span>응답과 연락처는 저장되지 않습니다.</span></aside>
+    <nav class="preview-nav" id="previewNav" aria-label="미리보기 화면 이동" hidden>
+      <button type="button" id="previewSurvey" class="active" aria-current="step">① 설문</button>
+      <button type="button" id="previewRaffle">② 경품 응모</button>
+      <button type="button" id="previewEnd">③ 완료</button>
+    </nav>
+    <main class="panel" id="mainPanel">
+      <div class="panel-inner" id="surveyView">
+        <p class="survey-kicker">2026년 기업문화 후속 설문</p>
+        <h1>좋아진 점도<br />그대로인 점도 알려주세요.</h1>
+        <p class="lede">기업문화 진단 결과를 지난 9월 공유하고, 각 조직에 개선을 요청했습니다.<br />그 후 우리 조직에서 느끼신 점을 간단히 듣고자 합니다.<br /><span class="lede-privacy"><strong class="privacy-emphasis">익명 설문으로</strong>, 구성원의 체감 여부와 사례를 확인하는 데만 활용됩니다.</span></p>
+        <div class="question-count" aria-label="설문 문항 수"><strong>필수 1문항</strong><span>(추가 의견은 선택)</span></div>
+        <div class="rule" aria-hidden="true"></div>
+        <form id="surveyForm" novalidate>
+          <div class="field-block org-stage" id="orgStage">
+            <div id="orgStageBody">
+            <div class="field-top"><label for="orgSearch" class="field-caption">소속 조직</label><span class="required">필수</span></div>
+            <div class="org-combo" id="orgCombo">
+              <input id="orgSearch" class="org-search" name="orgSearch" type="text" autocomplete="off" maxlength="40" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="orgList" aria-describedby="orgHelp orgError" placeholder="본부명 또는 부서명으로 검색" />
+              <svg class="org-magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg>
+              <div id="orgList" class="org-list" role="listbox" aria-label="조직명 검색 결과" hidden></div>
+            </div>
+            <p class="org-status" id="orgHelp" hidden></p>
+            <button type="button" id="otherOrgButton" class="org-other">목록에 없나요? 직접 입력하기</button>
+            <p id="orgError" class="error" role="alert" hidden>소속 조직을 검색해 선택하거나 직접 입력해 주세요.</p>
+            <button type="button" class="manual-continue" id="manualContinue" hidden>입력 완료</button>
+            </div>
+            <div class="org-selected-inline" id="orgComplete" hidden>
+              <span class="org-selected-prefix">소속 조직</span>
+              <strong id="chosenOrgName"></strong>
+              <button type="button" id="editOrg" class="change-org" aria-label="소속 조직 변경">변경</button>
+            </div>
+          </div>
+          <fieldset class="field-block stage-two" id="experienceFieldset" hidden>
+            <legend>
+              <span class="field-top question-top"><span class="field-index">01</span><span class="question" id="experienceHeading" tabindex="-1">지난 9월 이후, 우리 조직의 일하는 방식이나 소통은 어땠나요?</span></span>
+            </legend>
+            <div class="choice-list" role="group" aria-label="변화 체감 경험">
+              <label class="choice"><input type="radio" name="experience" value="improved" /><span class="radio-ui" aria-hidden="true"></span><span class="choice-text">좋아진 점이 있었다.</span></label>
+              <label class="choice"><input type="radio" name="experience" value="attempted" /><span class="radio-ui" aria-hidden="true"></span><span class="choice-text">개선 시도는 있었지만, 아직 달라진 점은 잘 모르겠다.</span></label>
+              <label class="choice"><input type="radio" name="experience" value="none" /><span class="radio-ui" aria-hidden="true"></span><span class="choice-text">특별한 개선 시도나 변화는 느끼지 못했다.</span></label>
+              <label class="choice"><input type="radio" name="experience" value="unsure" /><span class="radio-ui" aria-hidden="true"></span><span class="choice-text">판단하기 어렵다.</span></label>
+            </div>
+          </fieldset>
+          <section class="followup" id="commentSection" aria-labelledby="commentQuestion" hidden>
+            <div class="field-top followup-title"><span class="field-index">02</span><label class="followup-question" for="comment" id="commentQuestion"></label><span class="optional">선택</span></div>
+            <p class="helper" id="commentHelp"></p>
+            <textarea id="comment" name="comment" maxlength="500" rows="3" placeholder="" aria-describedby="commentHelp charCount"></textarea>
+            <div class="count" id="charCount">0 / 500</div>
+          </section>
+          <div id="responseFooter" hidden>
+          <p id="submitError" class="form-error" role="alert" hidden></p>
+          <button type="submit" id="submitButton" class="submit-button"><span id="submitLabel">제출하기</span></button>
+          <p class="form-endnote">설문 완료 후 모바일 기프티콘 추첨 응모 가능 (선택)</p>
+          </div>
+        </form>
+      </div>
+      <section class="panel-inner success" id="successView" aria-live="polite" hidden>
+        <div class="success-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h2 id="completionHeading" tabindex="-1">테스트 설문을 마쳤습니다.</h2>
+        <p id="completionText">입력하신 응답은 어디에도 저장되지 않았습니다.</p>
+        <div class="test-status" id="completionTestNote">테스트 모드 · 실제 저장 없음</div>
+        <div class="raffle-intro" id="raffleIntro">
+          <h3>기프티콘 추첨에 응모하시겠어요?</h3>
+          <p class="raffle-prize">스타벅스 카페 라떼(Tall) 기프티콘 | 100명 추첨</p>
+          <p class="raffle-date">당첨자에게는 11월 중 개별 안내드립니다.</p>
+          <p class="raffle-disclaimer">경품 응모는 선택사항입니다. 휴대전화번호는 설문 답변과 별도로 관리하며, 경품 추첨 및 당첨 안내·발송에만 사용합니다.</p>
+          <form id="raffleForm" novalidate>
+            <div class="raffle-field"><label for="rafflePhone">휴대전화번호 <span class="required">응모 시 필수</span></label><input id="rafflePhone" type="tel" inputmode="numeric" autocomplete="off" maxlength="13" placeholder="010-1234-5678" aria-describedby="rafflePhoneError" /><p class="error" id="rafflePhoneError" role="alert" hidden>휴대전화번호를 확인해 주세요.</p></div>
+            <div class="privacy-details"><dl>
+              <dt>수집 항목</dt><dd>휴대전화번호</dd>
+              <dt>이용 목적</dt><dd>추첨, 당첨 안내 및 경품 발송</dd>
+              <dt>보유 기간</dt><dd id="retentionText">경품 발송 완료 후 30일</dd>
+              <dt>동의 거부</dt><dd>동의하지 않으면 경품 응모가 제한됩니다.</dd>
+            </dl></div>
+            <label class="consent-label" for="raffleConsent"><input id="raffleConsent" type="checkbox" /><span>위 개인정보 수집·이용에 동의합니다. <strong>(응모 시 필수)</strong></span></label>
+            <p class="error" id="raffleConsentError" role="alert" hidden>경품 응모를 위해 동의가 필요합니다.</p>
+            <p class="form-error" id="raffleSubmitError" role="alert" hidden></p>
+            <div class="raffle-actions"><button type="submit" class="submit-button" id="raffleSubmitButton"><span id="raffleSubmitLabel">추첨 응모하기</span></button><button type="button" class="skip-button" id="skipRaffleButton">응모하지 않고 마치기</button></div>
+          </form>
+          <span class="raffle-notice" id="raffleTestNotice">테스트 모드입니다. 휴대전화번호를 입력해도 저장되지 않습니다. 실제 운영 전에는 개인정보 처리 절차를 확인해야 합니다.</span>
+        </div>
+        <div class="raffle-result" id="raffleResult" hidden aria-live="polite"><strong id="raffleResultHeading">테스트가 완료되었습니다.</strong><p id="raffleResultText">실제 저장 없음</p></div>
+        <button type="button" class="reset-button" id="resetButton">처음부터 다시 테스트</button>
+      </section>
+    </main>
+  </div>
+<script>
+"use strict";
+// 실제 운영 시 아래 항목을 확정하세요. 비활성화된 저장 API는 자동으로 연결되지 않습니다.
+const SETTINGS = Object.freeze({
+  testMode: false,
+  allowOtherDepartment: true,
+  maximumCommentLength: 500,
+  raffleRetention: "경품 발송 완료 후 30일",
+});
+// 7월 설문 원자료의 조직 3개 열만 사용. 응답 내용이나 개인 정보 없음.
+// 개선 실행 단위 기준: 지역단·대인보상단·특화보상단 개별 귀속, CIO/CISO 개별 귀속. CSIO는 CISO 검색 별칭.
+// 지역단·대인보상단·특화보상단은 자체 귀속. CIO/CISO는 개별 귀속. CSIO는 CISO 검색 별칭.
+const ORG_RECORDS = [{"division":"AM영업부문","headquarters":"AM1본부","department":"AM1본부","group":"AM1본부","review":""},{"division":"AM영업부문","headquarters":"AM1본부","department":"대구AM사업부","group":"AM1본부","review":""},{"division":"AM영업부문","headquarters":"AM1본부","department":"명동AM사업부","group":"AM1본부","review":""},{"division":"AM영업부문","headquarters":"AM1본부","department":"서초AM사업부","group":"AM1본부","review":""},{"division":"AM영업부문","headquarters":"AM1본부","department":"중부AM사업부","group":"AM1본부","review":""},{"division":"AM영업부문","headquarters":"AM1본부","department":"호남AM사업부","group":"AM1본부","review":""},{"division":"AM영업부문","headquarters":"AM2본부","department":"강남AM사업부","group":"AM2본부","review":""},{"division":"AM영업부문","headquarters":"AM2본부","department":"강북AM사업부","group":"AM2본부","review":""},{"division":"AM영업부문","headquarters":"AM2본부","department":"경기AM사업부","group":"AM2본부","review":""},{"division":"AM영업부문","headquarters":"AM2본부","department":"경인AM사업부","group":"AM2본부","review":""},{"division":"AM영업부문","headquarters":"AM2본부","department":"부경AM사업부","group":"AM2본부","review":""},{"division":"AM영업부문","headquarters":"AM2본부","department":"부산AM사업부","group":"AM2본부","review":""},{"division":"AM영업부문","headquarters":"AM마케팅본부","department":"AM교육파트","group":"AM마케팅본부","review":""},{"division":"AM영업부문","headquarters":"AM마케팅본부","department":"AM마케팅파트","group":"AM마케팅본부","review":""},{"division":"AM영업부문","headquarters":"AM마케팅본부","department":"AM지원파트","group":"AM마케팅본부","review":""},{"division":"CCO","headquarters":"CCO","department":"CCO","group":"CCO","review":""},{"division":"CCO","headquarters":"CCO","department":"소비자권익보호부","group":"CCO","review":""},{"division":"CCO","headquarters":"CCO","department":"소비자기획파트","group":"CCO","review":""},{"division":"CCO","headquarters":"CCO","department":"소비자지원부","group":"CCO","review":""},{"division":"CIAO","headquarters":"CIAO","department":"감사실","group":"CIAO","review":""},{"division":"CM사업본부","headquarters":"CM사업본부","department":"CM사업전략파트","group":"CM사업본부","review":""},{"division":"CM사업본부","headquarters":"CM사업본부","department":"CM자동차파트","group":"CM사업본부","review":""},{"division":"CM사업본부","headquarters":"CM사업본부","department":"CM장기일반파트","group":"CM사업본부","review":""},{"division":"CPC전략부문","headquarters":"마케팅기획본부","department":"DB마케팅부","group":"마케팅기획본부","review":""},{"division":"CPC전략부문","headquarters":"마케팅기획본부","department":"마케팅기획파트","group":"마케팅기획본부","review":""},{"division":"CPC전략부문","headquarters":"마케팅기획본부","department":"마케팅지원파트","group":"마케팅기획본부","review":""},{"division":"CPC전략부문","headquarters":"마케팅기획본부","department":"장기마케팅파트","group":"마케팅기획본부","review":""},{"division":"CPC전략부문","headquarters":"자동차업무본부","department":"자동차법인제휴팀","group":"자동차업무본부","review":""},{"division":"CPC전략부문","headquarters":"자동차업무본부","department":"자동차상품파트","group":"자동차업무본부","review":""},{"division":"CPC전략부문","headquarters":"자동차업무본부","department":"자동차손익파트","group":"자동차업무본부","review":""},{"division":"CPC전략부문","headquarters":"자동차업무본부","department":"자동차업무파트","group":"자동차업무본부","review":""},{"division":"CPC전략부문","headquarters":"장기상품본부","department":"장기상품개발파트","group":"장기상품본부","review":""},{"division":"CPC전략부문","headquarters":"장기상품본부","department":"장기상품운영파트","group":"장기상품본부","review":""},{"division":"CPC전략부문","headquarters":"장기상품본부","department":"장기요율전략파트","group":"장기상품본부","review":""},{"division":"CPC전략부문","headquarters":"장기업무본부","department":"장기계약관리부","group":"장기업무본부","review":""},{"division":"CPC전략부문","headquarters":"장기업무본부","department":"장기시스템파트","group":"장기업무본부","review":""},{"division":"CPC전략부문","headquarters":"장기업무본부","department":"장기심사부","group":"장기업무본부","review":""},{"division":"CPC전략부문","headquarters":"장기업무본부","department":"장기전략파트","group":"장기업무본부","review":""},{"division":"개인영업부문","headquarters":"강남지역단","department":"강남영업파트","group":"강남지역단","review":""},{"division":"개인영업부문","headquarters":"강남지역단","department":"강남조직파트","group":"강남지역단","review":""},{"division":"개인영업부문","headquarters":"강남지역단","department":"강남지역단","group":"강남지역단","review":""},{"division":"개인영업부문","headquarters":"강북지역단","department":"강북영업파트","group":"강북지역단","review":""},{"division":"개인영업부문","headquarters":"강북지역단","department":"강북조직파트","group":"강북지역단","review":""},{"division":"개인영업부문","headquarters":"강북지역단","department":"강북지역단","group":"강북지역단","review":""},{"division":"개인영업부문","headquarters":"강서지역단","department":"강서영업파트","group":"강서지역단","review":""},{"division":"개인영업부문","headquarters":"강서지역단","department":"강서조직파트","group":"강서지역단","review":""},{"division":"개인영업부문","headquarters":"강서지역단","department":"강서지역단","group":"강서지역단","review":""},{"division":"개인영업부문","headquarters":"강원지역단","department":"강원영업파트","group":"강원지역단","review":""},{"division":"개인영업부문","headquarters":"강원지역단","department":"강원조직파트","group":"강원지역단","review":""},{"division":"개인영업부문","headquarters":"강원지역단","department":"강원지역단","group":"강원지역단","review":""},{"division":"개인영업부문","headquarters":"개인마케팅교육본부","department":"개인영업지원파트","group":"개인마케팅교육본부","review":""},{"division":"개인영업부문","headquarters":"개인마케팅교육본부","department":"영업교육기획파트","group":"개인마케팅교육본부","review":""},{"division":"개인영업부문","headquarters":"개인마케팅교육본부","department":"영업교육운영파트","group":"개인마케팅교육본부","review":""},{"division":"개인영업부문","headquarters":"개인영업부문","department":"제주사업부","group":"개인영업부문","review":""},{"division":"개인영업부문","headquarters":"경기지역단","department":"경기영업파트","group":"경기지역단","review":""},{"division":"개인영업부문","headquarters":"경기지역단","department":"경기조직파트","group":"경기지역단","review":""},{"division":"개인영업부문","headquarters":"경기지역단","department":"경기지역단","group":"경기지역단","review":""},{"division":"개인영업부문","headquarters":"경남지역단","department":"경남영업파트","group":"경남지역단","review":""},{"division":"개인영업부문","headquarters":"경남지역단","department":"경남조직파트","group":"경남지역단","review":""},{"division":"개인영업부문","headquarters":"경남지역단","department":"경남지역단","group":"경남지역단","review":""},{"division":"개인영업부문","headquarters":"경인지역단","department":"경인영업파트","group":"경인지역단","review":""},{"division":"개인영업부문","headquarters":"경인지역단","department":"경인조직파트","group":"경인지역단","review":""},{"division":"개인영업부문","headquarters":"경인지역단","department":"경인지역단","group":"경인지역단","review":""},{"division":"개인영업부문","headquarters":"대경지역단","department":"대경영업파트","group":"대경지역단","review":""},{"division":"개인영업부문","headquarters":"대경지역단","department":"대경조직파트","group":"대경지역단","review":""},{"division":"개인영업부문","headquarters":"대경지역단","department":"대경지역단","group":"대경지역단","review":""},{"division":"개인영업부문","headquarters":"부산지역단","department":"부산영업파트","group":"부산지역단","review":""},{"division":"개인영업부문","headquarters":"부산지역단","department":"부산조직파트","group":"부산지역단","review":""},{"division":"개인영업부문","headquarters":"부산지역단","department":"부산지역단","group":"부산지역단","review":""},{"division":"개인영업부문","headquarters":"북부지역단","department":"북부영업파트","group":"북부지역단","review":""},{"division":"개인영업부문","headquarters":"북부지역단","department":"북부조직파트","group":"북부지역단","review":""},{"division":"개인영업부문","headquarters":"북부지역단","department":"북부지역단","group":"북부지역단","review":""},{"division":"개인영업부문","headquarters":"성남지역단","department":"성남영업파트","group":"성남지역단","review":""},{"division":"개인영업부문","headquarters":"성남지역단","department":"성남조직파트","group":"성남지역단","review":""},{"division":"개인영업부문","headquarters":"성남지역단","department":"성남지역단","group":"성남지역단","review":""},{"division":"개인영업부문","headquarters":"영남지역단","department":"영남영업파트","group":"영남지역단","review":""},{"division":"개인영업부문","headquarters":"영남지역단","department":"영남조직파트","group":"영남지역단","review":""},{"division":"개인영업부문","headquarters":"영남지역단","department":"영남지역단","group":"영남지역단","review":""},{"division":"개인영업부문","headquarters":"전북지역단","department":"전북영업파트","group":"전북지역단","review":""},{"division":"개인영업부문","headquarters":"전북지역단","department":"전북조직파트","group":"전북지역단","review":""},{"division":"개인영업부문","headquarters":"전북지역단","department":"전북지역단","group":"전북지역단","review":""},{"division":"개인영업부문","headquarters":"중부지역단","department":"중부영업파트","group":"중부지역단","review":""},{"division":"개인영업부문","headquarters":"중부지역단","department":"중부조직파트","group":"중부지역단","review":""},{"division":"개인영업부문","headquarters":"중부지역단","department":"중부지역단","group":"중부지역단","review":""},{"division":"개인영업부문","headquarters":"충청지역단","department":"충청영업파트","group":"충청지역단","review":""},{"division":"개인영업부문","headquarters":"충청지역단","department":"충청조직파트","group":"충청지역단","review":""},{"division":"개인영업부문","headquarters":"충청지역단","department":"충청지역단","group":"충청지역단","review":""},{"division":"개인영업부문","headquarters":"호남지역단","department":"호남영업파트","group":"호남지역단","review":""},{"division":"개인영업부문","headquarters":"호남지역단","department":"호남조직파트","group":"호남지역단","review":""},{"division":"개인영업부문","headquarters":"호남지역단","department":"호남지역단","group":"호남지역단","review":""},{"division":"계리본부","headquarters":"계리본부","department":"계리가정파트","group":"계리본부","review":""},{"division":"계리본부","headquarters":"계리본부","department":"계리결산파트","group":"계리본부","review":""},{"division":"계리본부","headquarters":"계리본부","department":"계리지원파트","group":"계리본부","review":""},{"division":"기술지원부문","headquarters":"CIO","department":"IT기획파트","group":"CIO","review":""},{"division":"기술지원부문","headquarters":"CIO","department":"시스템관리파트","group":"CIO","review":""},{"division":"기술지원부문","headquarters":"CIO","department":"인프라지원파트","group":"CIO","review":""},{"division":"기술지원부문","headquarters":"CISO","department":"정보보호파트","group":"CISO","review":"원자료 공식 표기 CISO; CSIO 검색 별칭 추가. 최신 조직명 확인"},{"division":"기술지원부문","headquarters":"기술지원부문","department":"서비스개발실","group":"기술지원부문","review":""},{"division":"기술지원부문","headquarters":"기술지원부문","department":"정보화지원파트","group":"기술지원부문","review":""},{"division":"기술지원부문","headquarters":"디지털전략본부","department":"데이터사이언스파트","group":"디지털전략본부","review":""},{"division":"기술지원부문","headquarters":"디지털전략본부","department":"디지털기획파트","group":"디지털전략본부","review":""},{"division":"기업보험부문","headquarters":"기업영업1본부","department":"공기업보험부","group":"기업영업1본부","review":""},{"division":"기업보험부문","headquarters":"기업영업1본부","department":"글로벌보험부","group":"기업영업1본부","review":""},{"division":"기업보험부문","headquarters":"기업영업1본부","department":"기업보험4부","group":"기업영업1본부","review":""},{"division":"기업보험부문","headquarters":"기업영업1본부","department":"기업보험6부","group":"기업영업1본부","review":""},{"division":"기업보험부문","headquarters":"기업영업1본부","department":"단체상해영업부","group":"기업영업1본부","review":""},{"division":"기업보험부문","headquarters":"기업영업2본부","department":"기업보험1부","group":"기업영업2본부","review":""},{"division":"기업보험부문","headquarters":"기업영업2본부","department":"기업보험2부","group":"기업영업2본부","review":""},{"division":"기업보험부문","headquarters":"기업영업2본부","department":"기업보험3부","group":"기업영업2본부","review":""},{"division":"기업보험부문","headquarters":"기업영업2본부","department":"기업보험5부","group":"기업영업2본부","review":""},{"division":"기업보험부문","headquarters":"법인컨설팅본부","department":"법인컨설팅1부","group":"법인컨설팅본부","review":""},{"division":"기업보험부문","headquarters":"법인컨설팅본부","department":"법인컨설팅2부","group":"법인컨설팅본부","review":""},{"division":"기업보험부문","headquarters":"법인컨설팅본부","department":"법인컨설팅3부","group":"법인컨설팅본부","review":""},{"division":"기업보험부문","headquarters":"일반보험기획본부","department":"일반보험기획본부","group":"일반보험기획본부","review":""},{"division":"기업보험부문","headquarters":"일반보험기획본부","department":"일반보험기획파트","group":"일반보험기획본부","review":""},{"division":"기업보험부문","headquarters":"일반보험기획본부","department":"일반보험지원파트","group":"일반보험기획본부","review":""},{"division":"기업보험부문","headquarters":"일반보험기획본부","department":"일반상품개발파트","group":"일반보험기획본부","review":""},{"division":"기업보험부문","headquarters":"일반보험기획본부","department":"퇴직연금영업팀","group":"일반보험기획본부","review":""},{"division":"기업보험부문","headquarters":"일반보험기획본부","department":"퇴직연금파트","group":"일반보험기획본부","review":""},{"division":"기업보험부문","headquarters":"일반보험업무본부","department":"일반UW지원파트","group":"일반보험업무본부","review":""},{"division":"기업보험부문","headquarters":"일반보험업무본부","department":"일반손해사정부","group":"일반보험업무본부","review":""},{"division":"기업보험부문","headquarters":"일반보험업무본부","department":"재물UW파트","group":"일반보험업무본부","review":""},{"division":"기업보험부문","headquarters":"일반보험업무본부","department":"특종UW파트","group":"일반보험업무본부","review":""},{"division":"기업보험부문","headquarters":"일반보험업무본부","department":"해상업무파트","group":"일반보험업무본부","review":""},{"division":"기업보험부문","headquarters":"해외사업본부","department":"해외업무파트","group":"해외사업본부","review":""},{"division":"기획관리부문","headquarters":"경영기획본부","department":"경리부","group":"경영기획본부","review":""},{"division":"기획관리부문","headquarters":"경영기획본부","department":"경영관리파트","group":"경영기획본부","review":""},{"division":"기획관리부문","headquarters":"경영기획본부","department":"기획파트","group":"경영기획본부","review":""},{"division":"기획관리부문","headquarters":"경영기획본부","department":"내부회계관리팀","group":"경영기획본부","review":""},{"division":"기획관리부문","headquarters":"기획관리부문","department":"ALM전략실","group":"기획관리부문","review":""},{"division":"기획관리부문","headquarters":"리스크관리본부","department":"보험RM파트","group":"리스크관리본부","review":""},{"division":"기획관리부문","headquarters":"리스크관리본부","department":"자산RM파트","group":"리스크관리본부","review":""},{"division":"기획관리부문","headquarters":"인사총무본부","department":"기타","group":"인사총무본부","review":""},{"division":"기획관리부문","headquarters":"인사총무본부","department":"노사문화파트","group":"인사총무본부","review":""},{"division":"기획관리부문","headquarters":"인사총무본부","department":"비상계획파트","group":"인사총무본부","review":""},{"division":"기획관리부문","headquarters":"인사총무본부","department":"인사파트","group":"인사총무본부","review":""},{"division":"기획관리부문","headquarters":"인사총무본부","department":"인재개발파트","group":"인사총무본부","review":""},{"division":"기획관리부문","headquarters":"인사총무본부","department":"총무파트","group":"인사총무본부","review":""},{"division":"보상전략부문","headquarters":"보상전략부문","department":"강남대인보상단","group":"강남대인보상단","review":""},{"division":"보상전략부문","headquarters":"보상전략부문","department":"강북대인보상단","group":"강북대인보상단","review":""},{"division":"보상전략부문","headquarters":"보상전략부문","department":"강서대인보상단","group":"강서대인보상단","review":""},{"division":"보상전략부문","headquarters":"보상전략부문","department":"보상전략TF","group":"보상전략부문","review":""},{"division":"보상전략부문","headquarters":"보상전략부문","department":"영남대인보상단","group":"영남대인보상단","review":""},{"division":"보상전략부문","headquarters":"보상전략부문","department":"중부대인보상단","group":"중부대인보상단","review":""},{"division":"보상전략부문","headquarters":"보상전략부문","department":"특화보상단","group":"특화보상단","review":""},{"division":"보상전략부문","headquarters":"보상전략부문","department":"호남대인보상단","group":"호남대인보상단","review":""},{"division":"보상전략부문","headquarters":"자동차보상본부","department":"자동차보상기획파트","group":"자동차보상본부","review":""},{"division":"보상전략부문","headquarters":"자동차보상본부","department":"자동차보상지원파트","group":"자동차보상본부","review":""},{"division":"보상전략부문","headquarters":"자동차보상본부","department":"자동차보험조사파트","group":"자동차보상본부","review":""},{"division":"보상전략부문","headquarters":"자동차보상본부","department":"자동차송무파트","group":"자동차보상본부","review":""},{"division":"보상전략부문","headquarters":"장기손사본부","department":"수도권장기손사부","group":"장기손사본부","review":""},{"division":"보상전략부문","headquarters":"장기손사본부","department":"영남권장기손사부","group":"장기손사본부","review":""},{"division":"보상전략부문","headquarters":"장기손사본부","department":"장기손사기획파트","group":"장기손사본부","review":""},{"division":"보상전략부문","headquarters":"장기손사본부","department":"장기손사부","group":"장기손사본부","review":""},{"division":"보상전략부문","headquarters":"장기손사본부","department":"장기손사지원파트","group":"장기손사본부","review":""},{"division":"보상전략부문","headquarters":"장기손사본부","department":"장기실손관리파트","group":"장기손사본부","review":""},{"division":"보상전략부문","headquarters":"장기손사본부","department":"장기조사부","group":"장기손사본부","review":""},{"division":"보상전략부문","headquarters":"장기손사본부","department":"중부권장기손사부","group":"장기손사본부","review":""},{"division":"브랜드전략본부","headquarters":"브랜드전략본부","department":"사회공헌파트","group":"브랜드전략본부","review":""},{"division":"브랜드전략본부","headquarters":"브랜드전략본부","department":"커뮤니케이션파트","group":"브랜드전략본부","review":""},{"division":"브랜드전략본부","headquarters":"브랜드전략본부","department":"홍보부","group":"브랜드전략본부","review":""},{"division":"자산운용부문","headquarters":"자산운용1본부","department":"개인융자부","group":"자산운용1본부","review":""},{"division":"자산운용부문","headquarters":"자산운용1본부","department":"융자영업부","group":"자산운용1본부","review":""},{"division":"자산운용부문","headquarters":"자산운용1본부","department":"증권운용부","group":"자산운용1본부","review":""},{"division":"자산운용부문","headquarters":"자산운용1본부","department":"퇴직연금운용팀","group":"자산운용1본부","review":""},{"division":"자산운용부문","headquarters":"자산운용2본부","department":"대체투자실","group":"자산운용2본부","review":""},{"division":"자산운용부문","headquarters":"자산운용2본부","department":"부동산금융부","group":"자산운용2본부","review":""},{"division":"자산운용부문","headquarters":"재무기획본부","department":"재무기획파트","group":"재무기획본부","review":""},{"division":"자산운용부문","headquarters":"재무기획본부","department":"재무지원파트","group":"재무기획본부","review":""},{"division":"자산운용부문","headquarters":"재무기획본부","department":"투자심사파트","group":"재무기획본부","review":""},{"division":"전략채널본부","headquarters":"전략채널본부","department":"TM자동차영업부","group":"전략채널본부","review":""},{"division":"전략채널본부","headquarters":"전략채널본부","department":"TM장기영업부","group":"전략채널본부","review":""},{"division":"전략채널본부","headquarters":"전략채널본부","department":"방카영업부","group":"전략채널본부","review":""},{"division":"전략채널본부","headquarters":"전략채널본부","department":"전략채널기획파트","group":"전략채널본부","review":""},{"division":"전략채널본부","headquarters":"전략채널본부","department":"전략채널운영파트","group":"전략채널본부","review":""},{"division":"전략채널본부","headquarters":"전략채널본부","department":"제휴영업1부","group":"전략채널본부","review":""},{"division":"전략채널본부","headquarters":"전략채널본부","department":"제휴영업2부","group":"전략채널본부","review":""},{"division":"준법감시인","headquarters":"준법감시인","department":"법무지원파트","group":"준법감시인","review":""},{"division":"준법감시인","headquarters":"준법감시인","department":"일반장기송무파트","group":"준법감시인","review":""},{"division":"준법감시인","headquarters":"준법감시인","department":"준법감시파트","group":"준법감시인","review":""},{"division":"지속가능본부","headquarters":"지속가능본부","department":"변화관리파트","group":"지속가능본부","review":""},{"division":"지속가능본부","headquarters":"지속가능본부","department":"신성장파트","group":"지속가능본부","review":""},{"division":"지속가능본부","headquarters":"지속가능본부","department":"지속가능본부","group":"지속가능본부","review":""}];
+const $ = id => document.getElementById(id);
+const form=$('surveyForm'), orgSearch=$('orgSearch'), orgList=$('orgList'), orgHelp=$('orgHelp'), orgError=$('orgError'), otherOrgButton=$('otherOrgButton');
+const inputs=[...form.querySelectorAll('input[name="experience"]')], comment=$('comment'), commentSection=$('commentSection'), commentQuestion=$('commentQuestion'), commentHelp=$('commentHelp'), charCount=$('charCount');
+const submitButton=$('submitButton'),submitLabel=$('submitLabel'),submitError=$('submitError'),surveyView=$('surveyView'),successView=$('successView'),completionHeading=$('completionHeading'),completionText=$('completionText'),completionTestNote=$('completionTestNote');
+const raffleForm=$('raffleForm'),rafflePhone=$('rafflePhone'),raffleConsent=$('raffleConsent'),rafflePhoneError=$('rafflePhoneError'),raffleConsentError=$('raffleConsentError'),raffleSubmitError=$('raffleSubmitError'),raffleSubmitButton=$('raffleSubmitButton'),raffleSubmitLabel=$('raffleSubmitLabel'),skipRaffleButton=$('skipRaffleButton'),raffleIntro=$('raffleIntro'),raffleResult=$('raffleResult'),raffleResultHeading=$('raffleResultHeading'),raffleResultText=$('raffleResultText');
+let submitting=false,raffleSubmitting=false,surveySubmitted=false,selectedOrgRecord=null,allowManual=false;
+const branchContent={
+  improved: {
+    q:"우리 조직에서 어떤 점이 좋아졌나요?",
+    h:"리더의 작은 시도나 업무 방식의 변화도 좋습니다.",
+    example:"예) 부장님이 회의 때 먼저 의견을 물어봐서 말하기 편해졌어요."
+  },
+  attempted: {
+    q:"기억나는 개선 시도가 있다면 알려주세요.",
+    h:"작은 시도나 아직 진행 중인 일도 괜찮습니다.",
+    example:"예) 불필요한 보고를 줄여보자는 이야기가 나왔어요."
+  }
+};
+const choice=()=>form.querySelector('input[name="experience"]:checked')?.value||"";
+const orgStage=$('orgStage'),orgStageBody=$('orgStageBody'),orgComplete=$('orgComplete'),chosenOrgName=$('chosenOrgName'),experienceFieldset=$('experienceFieldset'),experienceHeading=$('experienceHeading'),responseFooter=$('responseFooter'),manualContinue=$('manualContinue');
+let currentStep=1, editingOrg=false;
+function displayStep(step,scrollToNext=false){
+  currentStep=step;
+  const inSecond=step===2;
+  // 조직을 변경하는 동안에도 기존 객관식/주관식 및 제출 버튼은 계속 보여줍니다.
+  // 02번은 개선 체감 1·2번 응답일 때만 노출되며 작성 내용은 보존합니다.
+  orgStageBody.hidden=inSecond && !editingOrg;
+  orgComplete.hidden=!inSecond || editingOrg;
+  orgStage.classList.toggle('is-complete',inSecond && !editingOrg);
+  experienceFieldset.hidden=!inSecond;
+  commentSection.hidden=!inSecond || !branchContent[choice()];
+  responseFooter.hidden=!inSecond;
+  if(inSecond){
+    chosenOrgName.textContent=selectedOrgRecord?.name||orgSearch.value.trim();
+    if(scrollToNext){
+      if(document.activeElement===orgSearch)orgSearch.blur();
+      requestAnimationFrame(()=>{
+        const nextY=Math.max(0,orgStage.getBoundingClientRect().top+window.scrollY-18);
+        window.scrollTo({top:nextY,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+        experienceHeading.focus({preventScroll:true});
+      });
+    }
+  }
+}
+function confirmOrgSelection(){
+  const entered=orgSearch.value.trim();
+  orgError.textContent='소속 조직을 검색해 선택하거나 직접 입력해 주세요.';
+  if(!selectedOrgRecord && !(allowManual&&entered.length>=2&&entered.length<=40)){
+    orgError.hidden=false;orgSearch.setAttribute('aria-invalid','true');orgSearch.focus();return;
+  }
+  orgError.hidden=true;orgSearch.removeAttribute('aria-invalid');closeOrgList();
+  editingOrg=false;
+  displayStep(2,true);
+}
+$('editOrg').addEventListener('click',()=>{
+  // 소속 조직 입력란만 다시 열고 01·02 답변은 그 자리에 그대로 유지합니다.
+  editingOrg=true;
+  selectedOrgRecord=null;
+  orgSearch.value='';allowManual=false;
+  orgSearch.placeholder='본부명 또는 부서명으로 검색';
+  otherOrgButton.textContent='목록에 없나요? 직접 입력하기';
+  manualContinue.hidden=true;
+  orgHelp.hidden=true;
+  orgError.hidden=true;
+  submitError.hidden=true;
+  displayStep(2);
+  orgStage.scrollIntoView({block:'start',behavior:'smooth'});
+  orgSearch.focus({preventScroll:true});
+});
+manualContinue.addEventListener('click',confirmOrgSelection);
+// 183개 부서를 설문 귀속 조직으로 묶어 검색 목록에 한 번씩만 표시합니다.
+// 화면에는 본부/예외 귀속 조직을 큰 글씨로, 그 산하 부서를 작은 글씨로 표시합니다.
+const normalizeOrg = v => String(v || '').normalize('NFKC').replace(/[\s\u200B-\u200D]/g,'').toLocaleLowerCase('ko');
+const ORG_GROUPS = (() => {
+  const groups = new Map();
+  for (const r of ORG_RECORDS) {
+    if (!groups.has(r.group)) {
+      groups.set(r.group, {name:r.group, group:r.group, division:r.division, headquarters:r.headquarters, review:r.review || '', departments:[]});
+    }
+    const g=groups.get(r.group);
+    if (r.department && r.department !== r.group && !g.departments.includes(r.department)) g.departments.push(r.department);
+    if (r.review && !g.review) g.review=r.review;
+  }
+  for (const g of groups.values()) g.departments.sort((a,b)=>a.localeCompare(b,'ko'));
+  return [...groups.values()];
+})();
+function orgMatches(text) {
+  const raw=normalizeOrg(text), q=raw==='csio'?'ciso':raw;
+  if (!q) return [];
+  return ORG_GROUPS.map(g => {
+    const name=normalizeOrg(g.name);
+    const score = name===q ? 0 : name.startsWith(q) ? 1 : name.includes(q) ? 2 :
+      g.departments.some(d=>normalizeOrg(d)===q) ? 3 :
+      g.departments.some(d=>normalizeOrg(d).startsWith(q)) ? 4 :
+      g.departments.some(d=>normalizeOrg(d).includes(q)) ? 5 : 99;
+    return {g,score};
+  }).filter(x=>x.score<99)
+    .sort((a,b)=>a.score-b.score||a.g.name.localeCompare(b.g.name,'ko'))
+    .map(x=>x.g);
+}
+function closeOrgList(){orgList.hidden=true;orgSearch.setAttribute('aria-expanded','false')}
+function selectedMessage(g){return '선택한 조직: '+g.group}
+function visibleDepartments(g,query){
+  const q=normalizeOrg(query);
+  // 입력한 검색어와 일치하는 부서를 먼저 보여주고 나머지를 이어서 보여줍니다.
+  const ordered=g.departments.filter(d=>d!=='기타').sort((a,b)=>{
+    const aa=normalizeOrg(a).includes(q),bb=normalizeOrg(b).includes(q);
+    return aa===bb?a.localeCompare(b,'ko'):(aa?-1:1);
+  });
+  const MAX=5;
+  const shown=ordered.slice(0,MAX);
+  return {text:shown.join(' · ')+(ordered.length>MAX?' 외 '+(ordered.length-MAX)+'개 부서':''),full:ordered.join(' · ')};
+}
+function renderOrgList(){
+  const v=orgSearch.value.trim();orgList.replaceChildren();
+  if(!v || (selectedOrgRecord&&selectedOrgRecord.name===v) || allowManual){closeOrgList();return}
+  const matches=orgMatches(v);
+  if(!matches.length){closeOrgList();orgHelp.hidden=false;orgHelp.textContent='일치하는 조직이 없습니다. 이름을 다시 확인하거나 직접 입력해 주세요.';orgHelp.classList.remove('good');return}
+  for(const g of matches.slice(0,8)){
+    const btn=document.createElement('button');btn.type='button';btn.className='org-option';btn.setAttribute('role','option');
+    btn.setAttribute('aria-label',g.name+' 선택');
+    const primary=document.createElement('span');primary.className='org-primary';primary.textContent=g.name;
+    btn.append(primary);
+    if(g.departments.length){
+      const secondary=document.createElement('span');secondary.className='org-secondary';
+      const sub=visibleDepartments(g,v);
+      secondary.textContent=sub.text;secondary.title=sub.full;
+      btn.append(secondary);
+    }
+    btn.addEventListener('click',()=>{
+      selectedOrgRecord=g;orgSearch.value=g.name;allowManual=false;
+      orgHelp.hidden=false;orgHelp.textContent=selectedMessage(g);orgHelp.classList.add('good');
+      orgError.hidden=true;orgSearch.removeAttribute('aria-invalid');closeOrgList();
+      confirmOrgSelection();
+    });
+    orgList.append(btn);
+  }
+  if(matches.length>8){
+    const note=document.createElement('div');note.className='org-list-note';note.setAttribute('role','presentation');
+    note.textContent='검색 결과가 많습니다. 부서명을 더 입력하면 쉽게 찾을 수 있습니다.';
+    orgList.append(note);
+  }
+  orgList.hidden=false;orgSearch.setAttribute('aria-expanded','true');
+  orgHelp.hidden=true;
+  orgHelp.classList.remove('good');
+}
+orgSearch.addEventListener('input',()=>{selectedOrgRecord=null;orgError.hidden=true;orgSearch.removeAttribute('aria-invalid');orgHelp.classList.remove('good');orgHelp.hidden=true;if(allowManual){orgHelp.hidden=false;orgHelp.textContent='입력하신 조직명은 운영 시 별도로 확인됩니다.';manualContinue.hidden=orgSearch.value.trim().length<2}else{manualContinue.hidden=true;renderOrgList()}});
+orgSearch.addEventListener('focus',renderOrgList);
+orgSearch.addEventListener('keydown',e=>{if(e.key==='Escape')closeOrgList();if(e.key==='Enter'){e.preventDefault();if(!orgList.hidden){const first=orgList.querySelector('button');if(first)first.click()}else if(allowManual)confirmOrgSelection()}});
+document.addEventListener('pointerdown',e=>{if(!$('orgCombo').contains(e.target))closeOrgList()});
+otherOrgButton.addEventListener('click',()=>{
+  allowManual=!allowManual;selectedOrgRecord=null;orgSearch.value='';closeOrgList();orgHelp.classList.remove('good');
+  orgHelp.hidden=allowManual;orgHelp.textContent=allowManual?'':'검색 후 표시된 소속 조직을 선택해 주세요.';
+  orgSearch.placeholder=allowManual?'본부(부문)명 직접 입력':'본부명 또는 부서명으로 검색';
+  otherOrgButton.textContent=allowManual?'목록에서 검색하기':'목록에 없나요? 직접 입력하기';
+  manualContinue.hidden=!allowManual;orgSearch.focus();
+});
+function updateChoice(){
+  inputs.forEach(input=>input.closest('.choice').classList.toggle('is-selected',input.checked));
+  const c=choice(), branch=branchContent[c];
+  // 객관식 응답이 선택되면 이전의 미선택 오류 안내를 즉시 제거합니다.
+  if(c){submitError.hidden=true;submitError.textContent='';}
+  // 02번은 1·2번 객관식 응답을 선택한 경우 표시합니다. 조직 변경 중에도 유지합니다.
+  commentSection.hidden=currentStep!==2 || !branch;
+  if(branch){commentQuestion.textContent=branch.q;commentHelp.textContent=branch.h;comment.placeholder=branch.example;}else{comment.placeholder="";}
+  $('experienceFieldset').removeAttribute('aria-invalid');
+}
+let previousChoice='';
+inputs.forEach(input=>input.addEventListener('change',()=>{
+  if(choice()!==previousChoice){comment.value='';charCount.textContent='0 / '+SETTINGS.maximumCommentLength;previousChoice=choice();}
+  updateChoice();
+}));
+comment.addEventListener('input',()=>{charCount.textContent=comment.value.length+' / '+SETTINGS.maximumCommentLength});
+$('retentionText').textContent=SETTINGS.raffleRetention;
+const previewButtons=[$('previewSurvey'),$('previewRaffle'),$('previewEnd')];
+function markPreview(index){previewButtons.forEach((b,i)=>{b.classList.toggle('active',i===index);if(i===index)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')})}
+// The debugging navigation is available only with ?debug=1, never in the ordinary first impression.
+if(SETTINGS.testMode&&new URLSearchParams(location.search).has('debug'))$('previewNav').hidden=false;
+if(!SETTINGS.testMode){$('testBanner').hidden=true;$('previewNav').hidden=true;submitLabel.textContent='제출하기';raffleSubmitLabel.textContent='추첨 응모하기';$('raffleTestNotice').hidden=true;$('resetButton').hidden=true;}
+function clearErrors(){orgError.hidden=true;submitError.hidden=true;submitError.textContent='';orgSearch.removeAttribute('aria-invalid');$('experienceFieldset').removeAttribute('aria-invalid')}
+function departmentValue(){return selectedOrgRecord?.name || (allowManual?orgSearch.value.trim():'')}
+function validateSurvey(){
+  clearErrors();
+  if(currentStep!==2 || editingOrg){
+    orgError.textContent='소속 조직 변경을 완료해 주세요.';
+    orgError.hidden=false;
+    orgSearch.setAttribute('aria-invalid','true');
+    orgStage.scrollIntoView({block:'start',behavior:'smooth'});
+    orgSearch.focus({preventScroll:true});
+    return false;
+  }
+  const dep=departmentValue();const validDep=dep.length>=2 && dep.length<=40 && (allowManual||!!selectedOrgRecord);
+  const validChoice=['improved','attempted','none','unsure'].includes(choice());
+  if(!validDep){orgError.hidden=false;orgSearch.setAttribute('aria-invalid','true')}
+  if(!validChoice){$('experienceFieldset').setAttribute('aria-invalid','true')}
+  if(!validDep || !validChoice){
+    submitError.textContent=!validDep?'소속 조직을 선택하거나 직접 입력해 주세요.':'위에서 가장 가까운 답변 하나를 선택해 주세요.';
+    submitError.hidden=false;
+    if(!validDep){displayStep(1);orgSearch.focus();orgStage.scrollIntoView({block:'center',behavior:'smooth'});}
+    else {experienceFieldset.scrollIntoView({block:'center',behavior:'smooth'});}
+    return false;
+  }
+  return true;
+}
+// 응답 데이터에는 검색한 세부 부서명을 남기지 않고 설문 귀속 조직만 전송합니다.
+function buildSurveyPayload(){const exp=choice();return {submittedAt:new Date().toISOString(),reportingGroup:selectedOrgRecord?.group||(allowManual?orgSearch.value.trim():'미분류(확인 필요)'),parentDivision:selectedOrgRecord?.division||'',mappingStatus:selectedOrgRecord?(selectedOrgRecord.review?'운영확인필요':'자동매핑'):'직접입력_확인필요',experience:exp,comment:exp==='unsure'?'':comment.value.trim().slice(0,SETTINGS.maximumCommentLength),shareConsent:false}}
+// GitHub Pages → Google Apps Script: 외부 도메인 POST 후 저장 확인.
+// 복사한 Apps Script의 /exec 웹 앱 URL을 정확히 입력하세요.
+const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx5diD4HUUsopYSEzTt0YqsbzhiMvoZBSoBmQn1DuC7k-HPVhE1OGEB-S0WknzfNYBQSw/exec';
+const IS_CONFIGURED = /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(APPS_SCRIPT_WEB_APP_URL);
+
+function randomReceiptId(){
+  const bytes=new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
+}
+function waitFor(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
+// JSONP 응답은 저장 성공 유무만 확인하고 전화번호나 설문 답변은 반환하지 않습니다.
+function checkReceipt(receipt){
+  return new Promise((resolve,reject)=>{
+    const cb='cultureReceipt_'+randomReceiptId();
+    const script=document.createElement('script');
+    let done=false;
+    const clear=()=>{if(done)return;done=true;clearTimeout(timer);delete window[cb];script.remove()};
+    const timer=setTimeout(()=>{clear();reject(new Error('확인 지연'))},5000);
+    window[cb]=data=>{clear();resolve(!!(data&&data.saved))};
+    script.onerror=()=>{clear();reject(new Error('확인 연결 실패'))};
+    const qs=new URLSearchParams({action:'status',receipt:receipt,prefix:cb});
+    script.src=APPS_SCRIPT_WEB_APP_URL+'?'+qs.toString();
+    document.head.appendChild(script);
+  });
+}
+async function confirmedSave(action,payload){
+  if(!IS_CONFIGURED)throw new Error('운영자가 Google Apps Script 저장 주소를 아직 연결하지 않았습니다.');
+  const receipt=randomReceiptId();
+  const body=JSON.stringify({action,payload,receipt});
+  // text/plain POST는 사전 CORS 요청을 피하고, 응답은 opaque로 처리합니다.
+  // 성공 여부는 별도 확인용 응답(GET/JSONP)으로 확인하므로 저장 실패를 성공으로 안내하지 않습니다.
+  let postError=null;
+  const postPromise=fetch(APPS_SCRIPT_WEB_APP_URL,{
+    method:'POST',mode:'no-cors',redirect:'follow',
+    headers:{'Content-Type':'text/plain;charset=UTF-8'},
+    body
+  }).catch(error=>{postError=error});
+  // Google의 리다이렉트 응답을 읽을 수 없어도, POST 자체는 처리될 수 있으므로 확인 폴링을 우선합니다.
+  await Promise.race([postPromise,waitFor(500)]);
+  for(let attempt=0;attempt<20;attempt++){
+    try{if(await checkReceipt(receipt))return {ok:true};}catch(_){/* 다음 확인 시도 */}
+    await waitFor(1000);
+  }
+  throw new Error(postError ? '저장 서버에 연결할 수 없습니다. 인터넷 연결을 확인해 주세요.' :
+    '응답 저장 여부를 확인하지 못했습니다. 다시 제출하기 전에 담당자에게 문의해 주세요.');
+}
+async function submitSurvey(payload){
+  if(SETTINGS.testMode)return {ok:true,testOnly:true};
+  return confirmedSave('survey',payload);
+}
+async function submitRaffle(phone){
+  if(SETTINGS.testMode)return {ok:true,testOnly:true};
+  return confirmedSave('raffle',phone);
+}
+function busySurvey(on){submitting=on;submitButton.disabled=on;form.setAttribute('aria-busy',String(on));submitLabel.textContent=on?'확인 중…':'제출하기'}
+function showRaffle(testOnly){
+  document.body.classList.remove('completion-only');
+  surveySubmitted=true;surveyView.hidden=true;successView.hidden=false;raffleIntro.hidden=false;raffleResult.hidden=true;markPreview(1);
+  completionHeading.textContent=testOnly?'설문 테스트가 완료되었습니다.':'설문이 제출되었습니다.';
+  completionText.textContent=testOnly?'선택하신 내용은 저장되지 않았습니다. 다음 화면에서 경품 응모도 테스트할 수 있습니다.':'참여해 주셔서 감사합니다. 경품 추첨을 원하시면 아래에서 별도로 응모해 주세요.';
+  completionTestNote.hidden=!testOnly;
+  // 로컬 다운로드 HTML 및 모바일 브라우저에서도 상단에 새 화면을 표시합니다.
+  // html의 scroll-behavior:smooth 와 이전 단계 스크롤 애니메이션을 중단합니다.
+  document.documentElement.style.scrollBehavior='auto';
+  document.body.style.scrollBehavior='auto';
+  window.scrollTo(0,0);
+  if(document.scrollingElement)document.scrollingElement.scrollTop=0;
+  requestAnimationFrame(()=>{
+    window.scrollTo(0,0);
+    if(document.scrollingElement)document.scrollingElement.scrollTop=0;
+    try{completionHeading.focus({preventScroll:true})}catch(_){completionHeading.focus()}
+  });
+}
+// 모바일 로컬 HTML 환경에서도 '제출하기' 터치가 바로 처리되도록
+// 클릭 이벤트를 우선 받고, 키보드 Enter/보조기기 전송은 submit 이벤트로 받습니다.
+async function handleSurveySubmission(){
+  if(submitting || surveySubmitted)return;
+  if(!validateSurvey())return;
+  if(SETTINGS.testMode){showRaffle(true);return;} // 저장 없는 미리보기에서 즉시 전환
+  busySurvey(true);
+  try{
+    const result=await submitSurvey(buildSurveyPayload());
+    if(!result||result.ok!==true)throw new Error('제출 결과를 확인할 수 없습니다.');
+    showRaffle(!!result.testOnly);
+  }catch(err){
+    submitError.textContent=err.message||'제출하지 못했습니다. 다시 시도해 주세요.';
+    submitError.hidden=false;
+    submitError.scrollIntoView({block:'center'});
+  }finally{busySurvey(false)}
+}
+submitButton.addEventListener('click',e=>{e.preventDefault();void handleSurveySubmission()});
+form.addEventListener('submit',e=>{e.preventDefault();void handleSurveySubmission()});
+// 숫자 입력 및 붙여넣기 시 010-1234-5678 형식으로 자동 표시합니다.
+function formatMobilePhone(value){
+  const digits=String(value).replace(/\D/g,'').slice(0,11);
+  if(digits.length<=3)return digits;
+  if(digits.length<=7)return digits.slice(0,3)+'-'+digits.slice(3);
+  return digits.slice(0,3)+'-'+digits.slice(3,7)+'-'+digits.slice(7);
+}
+function phoneCaretAtDigit(formatted, digitCount){
+  if(digitCount<=0)return 0;
+  let seen=0;
+  for(let i=0;i<formatted.length;i++){
+    if(/\d/.test(formatted.charAt(i)))seen++;
+    if(seen>=digitCount)return i+1;
+  }
+  return formatted.length;
+}
+rafflePhone.addEventListener('input',()=>{
+  const before=rafflePhone.value;
+  const previousCaret=rafflePhone.selectionStart==null?before.length:rafflePhone.selectionStart;
+  const digitIndex=before.slice(0,previousCaret).replace(/\D/g,'').length;
+  const formatted=formatMobilePhone(before);
+  if(before!==formatted){
+    rafflePhone.value=formatted;
+    const cursor=phoneCaretAtDigit(formatted,digitIndex);
+    try{rafflePhone.setSelectionRange(cursor,cursor)}catch(_){}
+  }
+  rafflePhoneError.hidden=true;
+  rafflePhone.removeAttribute('aria-invalid');
+});
+// 구분 기호 바로 뒤에서 Backspace를 누른 경우, 앞자리 숫자도 자연스럽게 지웁니다.
+rafflePhone.addEventListener('keydown', e=>{
+  if(e.key!=='Backspace'||rafflePhone.selectionStart==null||rafflePhone.selectionStart!==rafflePhone.selectionEnd)return;
+  const cursor=rafflePhone.selectionStart;
+  if(cursor<1||rafflePhone.value.charAt(cursor-1)!=='-')return;
+  e.preventDefault();
+  const digits=rafflePhone.value.replace(/\D/g,'');
+  const digitIndex=rafflePhone.value.slice(0,cursor).replace(/\D/g,'').length;
+  const nextDigits=digits.slice(0,digitIndex-1)+digits.slice(digitIndex);
+  const formatted=formatMobilePhone(nextDigits);
+  rafflePhone.value=formatted;
+  const nextCursor=phoneCaretAtDigit(formatted,digitIndex-1);
+  rafflePhone.setSelectionRange(nextCursor,nextCursor);
+  rafflePhoneError.hidden=true;
+  rafflePhone.removeAttribute('aria-invalid');
+});
+raffleConsent.addEventListener('change',()=>{raffleConsentError.hidden=true});
+// 휴대전화번호/동의 상태 검증 후 완료 화면으로 전환합니다.
+// 클릭과 Enter 전송을 모두 지원하고, 테스트 모드에서는 저장 없이 즉시 이동합니다.
+function validateRaffle(){
+  rafflePhoneError.hidden=true;
+  raffleConsentError.hidden=true;
+  raffleSubmitError.hidden=true;
+  rafflePhone.removeAttribute('aria-invalid');
+  const phone=rafflePhone.value.replace(/\D/g,'');
+  if(!/^010\d{8}$/.test(phone)){
+    rafflePhoneError.textContent='휴대전화번호 11자리를 입력해 주세요.';
+    rafflePhoneError.hidden=false;
+    rafflePhone.setAttribute('aria-invalid','true');
+    rafflePhone.focus();
+    return null;
+  }
+  if(!raffleConsent.checked){
+    raffleConsentError.hidden=false;
+    raffleConsent.focus();
+    return null;
+  }
+  if(!SETTINGS.testMode && SETTINGS.raffleRetention.includes('확정 필요')){
+    raffleSubmitError.textContent='개인정보 보유기간을 확정한 후 응모를 시작할 수 있습니다.';
+    raffleSubmitError.hidden=false;
+    raffleSubmitError.scrollIntoView({block:'center'});
+    return null;
+  }
+  return phone;
+}
+async function handleRaffleSubmission(){
+  if(!surveySubmitted || raffleSubmitting)return;
+  const phone=validateRaffle();
+  if(!phone)return;
+  if(SETTINGS.testMode){
+    // 미리보기: 응모/저장으로 오해할 수 없도록 실제 접수 없이 즉시 완료 안내를 표시합니다.
+    rafflePhone.value='';
+    raffleForm.reset();
+    finish('설문에 참여해 주셔서 감사합니다.', '기프티콘 추첨 응모 화면까지 확인하셨습니다.', true);
+    return;
+  }
+  raffleSubmitting=true;
+  raffleSubmitButton.disabled=true;
+  skipRaffleButton.disabled=true;
+  raffleSubmitLabel.textContent='응모 확인 중…';
+  try{
+    const result=await submitRaffle(phone);
+    if(!result || result.ok!==true)throw new Error('응모 접수를 확인할 수 없습니다.');
+    rafflePhone.value='';
+    raffleForm.reset();
+    finish('설문에 참여해 주셔서 감사합니다.', '기프티콘 추첨 응모가 완료되었습니다. 당첨자에게는 11월 중 개별 안내드립니다.', false);
+  }catch(err){
+    raffleSubmitError.textContent=err.message||'응모에 실패했습니다. 다시 시도해 주세요.';
+    raffleSubmitError.hidden=false;
+    raffleSubmitError.scrollIntoView({block:'center'});
+  }finally{
+    raffleSubmitting=false;
+    raffleSubmitButton.disabled=false;
+    skipRaffleButton.disabled=false;
+    raffleSubmitLabel.textContent='추첨 응모하기';
+  }
+}
+raffleSubmitButton.addEventListener('click',e=>{e.preventDefault();void handleRaffleSubmission()});
+raffleForm.addEventListener('submit',e=>{e.preventDefault();void handleRaffleSubmission()});
+// 완료 시 기존 응모 입력폼을 숨기고 감사 메시지가 화면 맨 위에 보이도록 합니다.
+function finish(heading,text,testOnly){
+  document.body.classList.add('completion-only');
+  raffleIntro.hidden=true;
+  raffleResult.hidden=true;
+  completionHeading.textContent=heading;
+  completionText.textContent=text;
+  completionTestNote.hidden=!testOnly;
+  if(testOnly)completionTestNote.textContent='미리보기 화면 · 실제 경품 응모 및 개인정보 저장 없음';
+  markPreview(2);
+  document.documentElement.style.scrollBehavior='auto';
+  document.body.style.scrollBehavior='auto';
+  window.scrollTo(0,0);
+  if(document.scrollingElement)document.scrollingElement.scrollTop=0;
+  requestAnimationFrame(()=>{
+    window.scrollTo(0,0);
+    try{completionHeading.focus({preventScroll:true})}catch(_){completionHeading.focus()}
+  });
+}
+skipRaffleButton.addEventListener('click',()=>{
+  raffleForm.reset();
+  rafflePhone.value='';
+  finish('설문에 참여해 주셔서 감사합니다.', '기프티콘 추첨에는 응모하지 않았습니다.', SETTINGS.testMode);
+});
+function reset(){document.body.classList.remove('completion-only');previousChoice='';surveySubmitted=false;allowManual=false;editingOrg=false;selectedOrgRecord=null;form.reset();raffleForm.reset();orgSearch.value='';orgHelp.textContent='';orgHelp.hidden=true;orgHelp.classList.remove('good');orgSearch.placeholder='본부명 또는 부서명으로 검색';otherOrgButton.textContent='목록에 없나요? 직접 입력하기';manualContinue.hidden=true;closeOrgList();comment.value='';charCount.textContent='0 / '+SETTINGS.maximumCommentLength;clearErrors();updateChoice();displayStep(1);rafflePhone.value='';rafflePhoneError.hidden=true;raffleConsentError.hidden=true;raffleSubmitError.hidden=true;raffleIntro.hidden=false;raffleResult.hidden=true;completionTestNote.textContent='테스트 모드 · 실제 저장 없음';surveyView.hidden=false;successView.hidden=true;markPreview(0);window.scrollTo({top:0,behavior:'instant'})}
+$('resetButton').addEventListener('click',reset);
+previewButtons[0].addEventListener('click',()=>{if(SETTINGS.testMode)reset()});
+previewButtons[1].addEventListener('click',()=>{if(SETTINGS.testMode)showRaffle(true)});
+previewButtons[2].addEventListener('click',()=>{if(SETTINGS.testMode){showRaffle(true);finish('설문에 참여해 주셔서 감사합니다.','기프티콘 추첨 응모 화면까지 확인하셨습니다.',true)}});
+</script>
+</body>
+</html>
