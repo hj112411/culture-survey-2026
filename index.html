@@ -7,6 +7,8 @@
   <meta name="theme-color" content="#F8F8F6" />
   <meta name="description" content="2026년 기업문화 후속 설문. 좋아진 점도 그대로인 점도 알려주세요." />
   <title>2026년 기업문화 후속 설문</title>
+  <link rel="preconnect" href="https://script.google.com" crossorigin />
+  <link rel="dns-prefetch" href="https://script.google.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -98,6 +100,10 @@ textarea {display:block;resize:vertical;min-height:102px;max-height:290px;width:
 .submit-button:active {transform:scale(.99)}
 .submit-button:focus-visible,.reset-button:focus-visible,.skip-button:focus-visible {outline:3px solid rgba(239,145,48,.27);outline-offset:3px}
 .submit-button:disabled {opacity:.65;cursor:wait;transform:none}
+.submit-button.is-saving::before{content:"";display:inline-block;width:17px;height:17px;border:2px solid rgba(35,30,22,.22);border-top-color:#302518;border-radius:50%;animation:save-spin .75s linear infinite}
+@keyframes save-spin{to{transform:rotate(360deg)}}
+.save-progress{margin:9px 0 0;text-align:center;color:#686969;font-size:12.5px;line-height:1.55}
+@media(prefers-reduced-motion:reduce){.submit-button.is-saving::before{animation:none;border-top-color:#302518}}
 .submit-button svg {width:17px;height:17px;stroke-width:2}
 .form-endnote {text-align:center;color:#666;font-size:12.5px;line-height:1.65;margin:11px 2px 0}
 .error {color:var(--error);font-size:13px;line-height:1.6;margin:7px 1px 0}
@@ -361,6 +367,7 @@ body.completion-only #completionHeading { margin:0; font-size:clamp(22px,6vw,26p
           <div id="responseFooter" hidden>
           <p id="submitError" class="form-error" role="alert" hidden></p>
           <button type="submit" id="submitButton" class="submit-button"><span id="submitLabel">제출하기</span></button>
+          <p id="surveySaveProgress" class="save-progress" role="status" aria-live="polite" hidden>응답을 저장하고 있습니다…</p>
           <p class="form-endnote">설문 완료 후 모바일 기프티콘 추첨 응모 가능 (선택)</p>
           </div>
         </form>
@@ -387,6 +394,7 @@ body.completion-only #completionHeading { margin:0; font-size:clamp(22px,6vw,26p
             <p class="error" id="raffleConsentError" role="alert" hidden>경품 응모를 위해 동의가 필요합니다.</p>
             <p class="form-error" id="raffleSubmitError" role="alert" hidden></p>
             <div class="raffle-actions"><button type="submit" class="submit-button" id="raffleSubmitButton"><span id="raffleSubmitLabel">추첨 응모하기</span></button><button type="button" class="skip-button" id="skipRaffleButton">응모하지 않고 마치기</button></div>
+            <p id="raffleSaveProgress" class="save-progress" role="status" aria-live="polite" hidden>응모 정보를 저장하고 있습니다…</p>
           </form>
           <span class="raffle-notice" id="raffleTestNotice">테스트 모드입니다. 휴대전화번호를 입력해도 저장되지 않습니다. 실제 운영 전에는 개인정보 처리 절차를 확인해야 합니다.</span>
         </div>
@@ -640,23 +648,36 @@ function checkReceipt(receipt){
     document.head.appendChild(script);
   });
 }
+// 서버의 저장 완료 확인 전에는 다음 화면으로 이동하지 않습니다.
+const pendingSaves=Object.create(null);
 async function confirmedSave(action,payload){
   if(!IS_CONFIGURED)throw new Error('운영자가 Google Apps Script 저장 주소를 아직 연결하지 않았습니다.');
-  const receipt=randomReceiptId();
+  const payloadKey=JSON.stringify(payload);
+  let pending=pendingSaves[action];
+  if(!pending || pending.payloadKey!==payloadKey){
+    pending={receipt:randomReceiptId(),payloadKey};
+    pendingSaves[action]=pending;
+  }
+  const receipt=pending.receipt;
   const body=JSON.stringify({action,payload,receipt});
-  // text/plain POST는 사전 CORS 요청을 피하고, 응답은 opaque로 처리합니다.
-  // 성공 여부는 별도 확인용 응답(GET/JSONP)으로 확인하므로 저장 실패를 성공으로 안내하지 않습니다.
   let postError=null;
   const postPromise=fetch(APPS_SCRIPT_WEB_APP_URL,{
     method:'POST',mode:'no-cors',redirect:'follow',
     headers:{'Content-Type':'text/plain;charset=UTF-8'},
     body
   }).catch(error=>{postError=error});
-  // Google의 리다이렉트 응답을 읽을 수 없어도, POST 자체는 처리될 수 있으므로 확인 폴링을 우선합니다.
-  await Promise.race([postPromise,waitFor(500)]);
-  for(let attempt=0;attempt<20;attempt++){
-    try{if(await checkReceipt(receipt))return {ok:true};}catch(_){/* 다음 확인 시도 */}
-    await waitFor(1000);
+  await Promise.race([postPromise,waitFor(300)]);
+  const deadline=Date.now()+24000;
+  let attempt=0;
+  while(Date.now()<deadline){
+    try{
+      if(await checkReceipt(receipt)){
+        delete pendingSaves[action];
+        return {ok:true};
+      }
+    }catch(_){/* 일시적인 통신 지연 시 재확인 */}
+    attempt++;
+    await waitFor(Math.min(220+Math.floor(attempt/3)*110,550));
   }
   throw new Error(postError ? '저장 서버에 연결할 수 없습니다. 인터넷 연결을 확인해 주세요.' :
     '응답 저장 여부를 확인하지 못했습니다. 다시 제출하기 전에 담당자에게 문의해 주세요.');
@@ -669,7 +690,14 @@ async function submitRaffle(phone){
   if(SETTINGS.testMode)return {ok:true,testOnly:true};
   return confirmedSave('raffle',phone);
 }
-function busySurvey(on){submitting=on;submitButton.disabled=on;form.setAttribute('aria-busy',String(on));submitLabel.textContent=on?'확인 중…':'제출하기'}
+function busySurvey(on){
+  submitting=on;
+  submitButton.disabled=on;
+  submitButton.classList.toggle('is-saving',on);
+  form.setAttribute('aria-busy',String(on));
+  submitLabel.textContent=on?'제출 중…':'제출하기';
+  $('surveySaveProgress').hidden=!on;
+}
 function showRaffle(testOnly){
   document.body.classList.remove('completion-only');
   surveySubmitted=true;surveyView.hidden=true;successView.hidden=false;raffleIntro.hidden=false;raffleResult.hidden=true;markPreview(1);
@@ -795,7 +823,9 @@ async function handleRaffleSubmission(){
   raffleSubmitting=true;
   raffleSubmitButton.disabled=true;
   skipRaffleButton.disabled=true;
-  raffleSubmitLabel.textContent='응모 확인 중…';
+  raffleSubmitLabel.textContent='응모 중…';
+  raffleSubmitButton.classList.add('is-saving');
+  $('raffleSaveProgress').hidden=false;
   try{
     const result=await submitRaffle(phone);
     if(!result || result.ok!==true)throw new Error('응모 접수를 확인할 수 없습니다.');
@@ -811,6 +841,8 @@ async function handleRaffleSubmission(){
     raffleSubmitButton.disabled=false;
     skipRaffleButton.disabled=false;
     raffleSubmitLabel.textContent='추첨 응모하기';
+    raffleSubmitButton.classList.remove('is-saving');
+    $('raffleSaveProgress').hidden=true;
   }
 }
 raffleSubmitButton.addEventListener('click',e=>{e.preventDefault();void handleRaffleSubmission()});
