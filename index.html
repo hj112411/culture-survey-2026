@@ -57,10 +57,9 @@ h1 {font-size:clamp(25px,6.8vw,29px);line-height:1.36;font-weight:700;letter-spa
 .field-caption {margin:0;font-size:15.5px;font-weight:650;line-height:1.5;letter-spacing:-.03em;color:#2B2B2B}
 .required,.optional {margin-left:auto;font-size:12px;color:#757575;font-weight:450}
 .org-combo {position:relative;margin-top:10px}
-.org-search {display:block;width:100%;min-height:52px;border:1px solid #D8D9D6;border-radius:12px;padding:12px 44px 12px 15px;background:#fff;font-size:16px;color:#242424;line-height:1.4}
+.org-search {display:block;width:100%;min-height:52px;border:1px solid #D8D9D6;border-radius:12px;padding:12px 15px;background:#fff;font-size:16px;color:#242424;line-height:1.4}
 .org-search::placeholder,textarea::placeholder,#rafflePhone::placeholder {color:#8A8D90}
 .org-search:focus-visible,textarea:focus-visible,#rafflePhone:focus-visible {outline:3px solid rgba(239,145,48,.23);outline-offset:1px;border-color:var(--brand-border)}
-.org-magnifier {position:absolute;right:15px;top:17px;width:19px;height:19px;color:#797D82;pointer-events:none}
 .org-list {position:relative;z-index:5;padding:5px;margin:7px 0 0;max-height:220px;overflow-y:auto;border:1px solid #DADBD8;border-radius:12px;background:white;box-shadow:0 12px 30px rgba(0,0,0,.08)}
 .org-option {display:block;width:100%;padding:12px;border:0;border-radius:8px;text-align:left;color:#333;background:#fff;font-size:14px;cursor:pointer}
 .org-option:hover,.org-option:focus-visible {background:var(--brand-weak);outline:none}
@@ -167,8 +166,7 @@ h1 {font-size:clamp(23px,6.3vw,26px);line-height:1.31;margin:7px 0 13px;letter-s
 .field-top {gap:8px;margin-bottom:8px}
 .field-caption {font-size:15.5px}
 .org-combo {margin-top:0}
-.org-search {min-height:50px;border-radius:11px;padding:11px 42px 11px 13px;font-size:15px}
-.org-magnifier {top:16px}
+.org-search {min-height:50px;border-radius:11px;padding:11px 13px;font-size:15px}
 .org-other {margin-top:3px;padding:4px 0 0;font-size:12px}
 .question-top {gap:8px;margin-bottom:7px}
 .question-top .question {font-size:15.7px;line-height:1.5;letter-spacing:-.032em}
@@ -229,8 +227,7 @@ h1 {font-size:clamp(28px,7.7vw,32px);line-height:1.34;letter-spacing:-.052em;mar
 .field-caption {font-size:20px;line-height:1.45;font-weight:700;letter-spacing:-.038em;color:#252525}
 .required,.optional {font-size:13px;line-height:1.5;color:#707579;font-weight:500}
 .org-combo {margin-top:0}
-.org-search {min-height:60px;border-radius:14px;border-color:#D3D6D3;font-size:17px;line-height:1.35;padding:14px 46px 14px 16px;letter-spacing:-.018em}
-.org-magnifier {top:19px;right:16px;width:21px;height:21px}
+.org-search {min-height:60px;border-radius:14px;border-color:#D3D6D3;font-size:17px;line-height:1.35;padding:14px 16px;letter-spacing:-.018em}
 .org-option {padding:15px 13px;border-radius:9px}
 .org-option+.org-option {border-top:1px solid #F0F0EC}
 .org-option .org-primary {font-size:16px;line-height:1.5}
@@ -358,7 +355,7 @@ body.completion-only #completionHeading { margin:0; font-size:clamp(22px,6vw,26p
             <div class="field-top"><label for="orgSearch" class="field-caption">소속 조직</label><span class="required">필수</span></div>
             <div class="org-combo" id="orgCombo">
               <input id="orgSearch" class="org-search" name="orgSearch" type="text" autocomplete="off" maxlength="40" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="orgList" aria-describedby="orgHelp orgError" placeholder="본부명 또는 부서명으로 검색" />
-              <svg class="org-magnifier" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg>
+              
               <div id="orgList" class="org-list" role="listbox" aria-label="조직명 검색 결과" hidden></div>
             </div>
             <p class="org-status" id="orgHelp" hidden></p>
